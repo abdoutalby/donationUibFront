@@ -16,9 +16,11 @@ import { MngDonataireComponent } from './ADMDASHB/mng-donataire/mng-donataire.co
 import { MngDonneurComponent } from './ADMDASHB/mng-donneur/mng-donneur.component';
 import { MngDonComponent } from './ADMDASHB/mng-don/mng-don.component';
 import { MngCampagneComponent } from './ADMDASHB/mng-campagne/mng-campagne.component';
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'create', component: CreateCampaignComponent },
   { path: 'mng-campagne', component: MngCampagneComponent },
   { path: 'mng-don', component: MngDonComponent },
   { path: 'mng-donneur', component: MngDonneurComponent },

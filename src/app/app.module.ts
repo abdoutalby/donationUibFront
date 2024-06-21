@@ -35,6 +35,7 @@ import { AdmGraphComponent } from './ADMDASHB/adm-graph/adm-graph.component';
 import { MngDonneurComponent } from './ADMDASHB/mng-donneur/mng-donneur.component';
 import { MngDonComponent } from './ADMDASHB/mng-don/mng-don.component';
 import { MngCampagneComponent } from './ADMDASHB/mng-campagne/mng-campagne.component';
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { MngCampagneComponent } from './ADMDASHB/mng-campagne/mng-campagne.compo
     MngDonneurComponent,
     MngDonComponent,
     MngCampagneComponent,
+    CreateCampaignComponent,
     
   ],
   imports: [
