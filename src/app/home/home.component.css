@@ -211,13 +211,13 @@ app-navbar {
 .stat h1 {
   font-size: 3rem;
   margin-bottom: 10px;
-  font-weight: 800;
+  font-weight: 900;
   color: #ffffff;
 }
 
 .stat-label {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #ffffff;
 }
 
@@ -275,6 +275,7 @@ app-navbar {
 
 .tutorial-step p a{
   text-decoration: underline;
+  color: #000000;
   cursor: pointer;
 }
 

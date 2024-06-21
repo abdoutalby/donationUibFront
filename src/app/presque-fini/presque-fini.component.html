@@ -13,8 +13,8 @@
                         <span>{{ (project.raised / project.goal) * 100 | number:'1.0-0' }}%</span>
                     </div>
                 </div>
-                <p>Goal: {{ project.goal | currency:'USD':'symbol' }}</p>
-                <p>Raised: {{ project.raised | currency:'USD':'symbol' }}</p>
+                <p>Objectif: {{ project.goal | currency:'TND':'symbol' }}</p>
+                <p>Collecté: {{ project.raised | currency:'TND':'symbol' }}</p>
             </div>
             <div class="overlay">Voir</div>
         </div>

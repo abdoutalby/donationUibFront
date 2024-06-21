@@ -30,6 +30,10 @@ export class HomeComponent implements OnInit {
     return this.authService.isAuthenticated();
   }
 
+  getRole(): string{
+    return this.authService.getUserRole();
+  }
+
   ngOnInit(): void {
     this.displayedCompanies = this.companies.slice(0, 3);
     setInterval(() => {

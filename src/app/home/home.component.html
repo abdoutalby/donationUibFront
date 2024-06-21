@@ -10,7 +10,7 @@
             <p>Chez <b>DonByUIB</b>, votre générosité alimente nos efforts pour soutenir et élever ceux qui en ont besoin.
                 Faites un don maintenant pour <b>aider</b> à créer un avenir meilleur. Ensemble, nous pouvons faire la différence.
                 Chaque <b>contribution</b>, quelle que soit sa taille, compte et apporte une lueur <b>d'espoir</b> dans la vie de ceux que nous servons.</p>
-                <ng-container *ngIf="!isConnected()">
+                <ng-container *ngIf="!isConnected() ">
                   <button mat-raised-button color="primary" routerLink="/about">À propos</button>
                 </ng-container>
                 <ng-container *ngIf="isConnected()">
@@ -50,31 +50,82 @@
     <app-presque-fini></app-presque-fini>
 
 
-    <div class="tutorial-area-container">
-        <h2 class="tutorial-area-title">Comment ça marche ?</h2>
+    <div *ngIf="!isConnected(); else connectedContent" class="tutorial-area-container">
+      <h2 class="tutorial-area-title">Comment ça marche ?</h2>
+      <div class="tutorial-steps">
+        <div class="tutorial-step">
+          <button id="step1-button" class="step-btn" (click)="toggleDescription('step1')">◖Découvrez nos projets◗</button>
+          <p class="step-description" id="step1-description"><a routerLink="/annonces">Explorez</a> notre catalogue varié de projets qui ont besoin de votre soutien. Trouvez des initiatives qui résonnent avec vos valeurs et vos passions.</p>
+        </div>
+        <div class="tutorial-step">
+          <button id="step2-button" class="step-btn" (click)="toggleDescription('step2')">◖Inscrivez-vous gratuitement◗</button>
+          <p class="step-description" id="step2-description"><a routerLink="/signup">Créez votre compte</a> en quelques minutes pour rejoindre notre communauté de donateurs et commencer à faire une différence.</p>
+        </div>
+        <div class="tutorial-step">
+          <button id="step3-button" class="step-btn" (click)="toggleDescription('step3')">◖Choisissez un projet◗</button>
+          <p class="step-description" id="step3-description"><a routerLink="/annonces">Sélectionnez</a> le projet qui vous inspire le plus et qui correspond à vos critères de donation.</p>
+        </div>
+        <div class="tutorial-step">
+          <button id="step4-button" class="step-btn" (click)="toggleDescription('step4')">◖Faites un don◗</button>
+          <p class="step-description" id="step4-description">Contribuez rapidement et en toute sécurité au projet de votre choix grâce à notre plateforme conviviale.</p>
+        </div>
+        <div class="tutorial-step">
+          <button id="step5-button" class="step-btn" (click)="toggleDescription('step5')">◖Recevez des mises à jour◗</button>
+          <p class="step-description" id="step5-description">Suivez l'impact de votre contribution en recevant des nouvelles et des rapports réguliers sur l'avancement du projet que vous soutenez.</p>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #connectedContent>
+      <div *ngIf="getRole() === 'donneur'; else donataireContent" class="tutorial-area-container">
+        <h2 class="tutorial-area-title">Bienvenue Donneur</h2>
         <div class="tutorial-steps">
           <div class="tutorial-step">
-            <button id="step1-button" class="step-btn" (click)="toggleDescription('step1')">◖Découvrez nos projets◗</button>
-            <p class="step-description" id="step1-description"><a >Parcourez</a> notre catalogue de projets qui ont besoin de votre soutien.</p>
+            <button id="step1-button" class="step-btn" (click)="toggleDescription('step1')">◖Découvrez nos actualités◗</button>
+            <p class="step-description" id="step1-description"><a routerLink="/news">Restez à jour</a> avec les dernières nouvelles, les campagnes réussies et les nouvelles initiatives de notre plateforme.</p>
           </div>
           <div class="tutorial-step">
-            <button id="step2-button" class="step-btn" (click)="toggleDescription('step2')">◖Inscrivez-vous gratuitement◗</button>
-            <p class="step-description" id="step2-description"><a >Enregistrez-vous</a> pour créer un compte donateur et commencer à contribuer.</p>
+            <button id="step2-button" class="step-btn" (click)="toggleDescription('step2')">◖Découvrez Nos Projets◗</button>
+            <p class="step-description" id="step2-description"><a routerLink="/annonces">Explorez</a> notre large sélection de projets en cours et trouvez celui que vous souhaitez soutenir.</p>
           </div>
           <div class="tutorial-step">
             <button id="step3-button" class="step-btn" (click)="toggleDescription('step3')">◖Choisissez un projet◗</button>
-            <p class="step-description" id="step3-description"><a >Explorez</a> les différents projets et choisissez celui que vous souhaitez soutenir.</p>
+            <p class="step-description" id="step3-description">Parcourez les projets disponibles et sélectionnez celui que vous souhaitez aider à réaliser.</p>
           </div>
           <div class="tutorial-step">
-            <button id="step4-button" class="step-btn" (click)="toggleDescription('step4')">◖Faites un don◗</button>
-            <p class="step-description" id="step4-description">Contribuez au projet de votre choix en faisant un don facilement en ligne.</p>
+            <button id="step4-button" class="step-btn" (click)="toggleDescription('step4')">◖Faire un don◗</button>
+            <p class="step-description" id="step4-description">Contribuez facilement et rapidement pour soutenir le projet de votre choix.</p>
           </div>
           <div class="tutorial-step">
-            <button id="step5-button" class="step-btn" (click)="toggleDescription('step5')">◖Recevez des mises à jour◗</button>
-            <p class="step-description" id="step5-description">Suivez l'impact de votre contribution en recevant des mises à jour régulières sur le projet.</p>
+            <button id="step5-button" class="step-btn" (click)="toggleDescription('step5')">◖Suivre vos dons et les campagnes◗</button>
+            <p class="step-description" id="step5-description"><a routerLink="/mesdons">Consultez</a> l'historique de vos contributions et suivez l'évolution des projets que vous soutenez.</p>
           </div>
         </div>
-    </div>
+      </div>
     
-    
+      <ng-template #donataireContent>
+        <div class="tutorial-area-container">
+          <h2 class="tutorial-area-title">Bienvenue Donataire</h2>
+          <div class="tutorial-steps">
+            <div class="tutorial-step">
+              <button id="step1-button" class="step-btn" (click)="toggleDescription('step1')">◖Découvrez nos actualités◗</button>
+              <p class="step-description" id="step1-description"><a routerLink="/news">Restez à jour</a> avec les dernières nouvelles, les campagnes réussies et les nouvelles initiatives de notre plateforme.</p>
+            </div>
+            <div class="tutorial-step">
+              <button id="step2-button" class="step-btn" (click)="toggleDescription('step2')">◖Découvrez vos actualités◗</button>
+              <p class="step-description" id="step2-description"><a routerLink="/overview">Accédez</a> à votre tableau de bord personnel pour voir l'impact de vos campagnes.</p>
+            </div>
+            <div class="tutorial-step">
+              <button id="step3-button" class="step-btn" (click)="toggleDescription('step3')">◖Gérer vos campagnes◗</button>
+              <p class="step-description" id="step3-description"><a routerLink="/orgmanage">Gérez</a> toutes vos campagnes en cours et consultez leurs performances</p>
+            </div>
+            <div class="tutorial-step">
+              <button id="step4-button" class="step-btn" (click)="toggleDescription('step4')">◖Créer une nouvelle campagne◗</button>
+              <p class="step-description" id="step4-description"><a routerLink="/orgmanage">Créer</a> une nouvelle campagne et faire la différence</p>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      
 <app-footer></app-footer>

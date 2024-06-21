@@ -13,7 +13,8 @@ export class ProjectDetailsComponent implements OnInit {
     title: 'Initiative Eau Propre',
     image: 'assets/water.jpg',
     publisher: 'Fondation Eau pour Tous',
-    donationPercentage: 75,
+    objectif: 10000, // goal of donations
+    collecte: 7500,  // amount collected
     description: 'L\'Initiative Eau Propre vise à fournir de l\'eau potable propre et sûre aux communautés dans le besoin. Nous utilisons des systèmes de filtration avancés et l\'engagement communautaire pour assurer des solutions durables en matière d\'eau.',
     publisherName: 'Fondation Eau pour Tous',
     publisherBio: 'La Fondation Eau pour Tous est une organisation à but non lucratif dédiée à l\'amélioration de l\'accès à l\'eau potable dans le monde entier.',

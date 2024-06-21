@@ -8,9 +8,13 @@
       <p class="publisher">{{ project.publisher }}</p>
       <div class="progress-container">
         <div class="progress-bar">
-          <div class="progress" [style.width]="project.donationPercentage + '%'"></div>
+          <div class="progress" [style.width]="(project.collecte / project.objectif) * 100 + '%'"></div>
         </div>
-        <span class="progress-text">{{ project.donationPercentage }}% financé</span>
+        <span class="progress-text">{{ (project.collecte / project.objectif) * 100 | number:'1.0-2' }}% financé</span>
+      </div>
+      <div class="donation-details">
+        <span class="objectif">Objectif: {{ project.objectif | currency:'TND' }}</span>
+        <span class="collecte">Collecté: {{ project.collecte | currency:'TND' }}</span>
       </div>
       <button class="donate-btn" (click)="donate()">Faire un Don</button>
     </div>
