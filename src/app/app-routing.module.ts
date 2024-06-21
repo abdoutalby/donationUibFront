@@ -17,20 +17,21 @@ import { MngDonneurComponent } from './ADMDASHB/mng-donneur/mng-donneur.componen
 import { MngDonComponent } from './ADMDASHB/mng-don/mng-don.component';
 import { MngCampagneComponent } from './ADMDASHB/mng-campagne/mng-campagne.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
+import { AuthGuard } from './auth.guard'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'create', component: CreateCampaignComponent },
-  { path: 'mng-campagne', component: MngCampagneComponent },
-  { path: 'mng-don', component: MngDonComponent },
-  { path: 'mng-donneur', component: MngDonneurComponent },
-  { path: 'mng-donataire', component: MngDonataireComponent },
-  { path: 'mesdons', component: MesdonsComponent },
+  { path: 'create', component: CreateCampaignComponent, canActivate: [AuthGuard], data: { roles: ['donataire'] } },
+  { path: 'mng-campagne', component: MngCampagneComponent , canActivate: [AuthGuard], data: { roles: ['admin'] } },
+  { path: 'mng-don', component: MngDonComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+  { path: 'mng-donneur', component: MngDonneurComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+  { path: 'mng-donataire', component: MngDonataireComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+  { path: 'mesdons', component: MesdonsComponent, canActivate: [AuthGuard], data: { roles: ['donneur'] } },
   { path: 'news', component: NewsComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'changepass', component: ChangePasswordComponent },
-  { path: 'orgmanage', component: OrgProjectManagingComponent },
-  { path: 'overview', component: OrgDashboardComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { roles: ['donataire','donneur'] } },
+  { path: 'changepass', component: ChangePasswordComponent, canActivate: [AuthGuard], data: { roles: ['donataire','donneur','admin'] } },
+  { path: 'orgmanage', component: OrgProjectManagingComponent, canActivate: [AuthGuard], data: { roles: ['donataire'] } },
+  { path: 'overview', component: OrgDashboardComponent, canActivate: [AuthGuard], data: { roles: ['donataire'] } },
   { path: 'annonces', component: LesAnnoncesComponent },
   { path: 'details', component: ProjectDetailsComponent },
   { path: 'about', component: AboutComponent },
