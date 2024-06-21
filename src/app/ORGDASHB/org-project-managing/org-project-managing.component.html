@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+
+<div class="container">
+
+
+    <app-org-graph-doughnut class="graph-container"></app-org-graph-doughnut>
+
+
+  <div class="campaigns-table">
+    <h2>Campagnes En Cours</h2>
+    <div class="search-container">
+      <input type="text" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filterData()">
+      <p *ngIf="searchMessage">{{ searchMessage }}</p>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="img">Image</th>
+          <th>Nom</th>
+          <th>Date</th>
+          <th>Donneurs</th>
+          <th>Progrès</th>
+          <th>Commentaires</th>
+          <th>Status</th>
+          <th>Mise à jour</th>
+          <th>Supprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let campaign of filteredCampaigns">
+          <td><img [src]="campaign.image" alt="Campaign Image"></td>
+          <td>{{ campaign.name }}</td>
+          <td>{{ campaign.publishedDate }}</td>
+          <td>{{ campaign.donorsNb }}</td>
+          <td>{{ (campaign.raised / campaign.goal) * 100 | number:'1.0-0' }}%</td>
+          <td>{{ campaign.comments }}</td>
+          <td>
+              <span class="status-circle" [ngClass]="campaign.status === 0 ? 'status-inactive' : 'status-active'"
+                    [matTooltip]="campaign.status === 0 ? 'Veuillez contacter l\'équipe à fin de savoir pourquoi' : ''">
+              </span>
+            </td>
+          <td><button (click)="navigateToUpdateCampaign(campaign.name)">Click</button></td>
+          <td><button (click)="deleteCampaign(campaign.name)">Click</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<app-footer></app-footer>

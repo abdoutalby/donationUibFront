@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+
+  <section class="dashboard-overview">
+    <div class="overview-card">
+      <h2 [countUp]="totalCount" [options]="{ enableScrollSpy: true }">{{ totalCount }} </h2>      
+      <p class="stat-label">Total des dons</p>
+    </div>
+    <div class="overview-card">
+      <h2 [countUp]="donneurCount" [options]="{ enableScrollSpy: true }">0</h2>
+      <p class="stat-label">Nombre de donneur</p>
+    </div>
+    <div class="overview-card">
+      <h2 [countUp]="campagneCount" [options]="{ enableScrollSpy: true }">0</h2>
+      <p class="stat-label">Campagnes en cours</p>
+    </div>
+  </section>
+
+  <section class="recent-donations">
+    <h2>Derniers Dons</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Donneur</th>
+          <th>Montant</th>
+          <th>Campagne</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donation of recentDonations">
+          <td>{{ donation.donor }}</td>
+          <td>{{ donation.amount | currency:'TND':'symbol':'1.2-2' }}</td>
+          <td>{{ donation.campaignName }}</td>
+          <td>{{ donation.date | date:'shortDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!--<section class="campaign-summary">
+    <h2>Campagne En Cours</h2>
+    <div class="campaign-cards-container">
+      <div class="polaroid-card" *ngFor="let campaign of campaigns">
+        <img [src]="campaign.image" alt="{{ campaign.name }}">
+        <div class="container">
+          <h3>{{ campaign.name }}</h3>
+          <p>{{ campaign.description }}</p>
+          <div class="progress-bar">
+            <div class="progress" [style.width.%]="(campaign.raised / campaign.goal) * 100">
+              <span>{{ (campaign.raised / campaign.goal) * 100 | number:'1.0-0' }}%</span>
+            </div>
+          </div>
+          <p>Objectif: {{ campaign.goal | currency:'TND':'symbol':'1.2-2' }}</p>
+          <p>Collecté: {{ campaign.raised | currency:'TND':'symbol':'1.2-2' }}</p>
+        </div>
+      </div>
+    </div>
+  </section>-->
+
+  <section class="recent-comments">
+    <h2>Derniers Commentaires</h2>
+    <div class="comment-container">
+      <div class="comment" *ngFor="let comment of recentComments">
+        <p><strong>{{ comment.userName }}</strong> a commenté sur la campagne <strong>{{ comment.campaignName }}</strong></p>
+        <p>"{{ comment.commentText }}"</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

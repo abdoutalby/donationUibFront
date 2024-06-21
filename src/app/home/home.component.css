@@ -1,0 +1,290 @@
+/* Navbar placeholder */
+app-navbar {
+  display: block; /* Ensure it takes up space */
+  height: 60px; /* Adjust this to match your navbar height */
+}
+
+/* Container for full view section */
+.fview-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  box-shadow: 0px 0px 18px 3px rgba(0,0,0,0.69);
+}
+
+.fview-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.fview-background img {
+  width: 100%;
+  height: 100%; /* Ensure it takes up the full height */
+  object-fit: cover; /* Ensure the image covers the container */
+}
+
+.fview-content {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  margin-left: 20px;
+  width: 60%; /* Adjusted width for each content section */
+  padding: 0 20px;
+  color: #ffffff;
+  text-align: left;
+}
+
+.fview-content h1 {
+  font-size: 2.7rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.fview-content p {
+  font-size: 1.2rem;
+  margin-bottom: 35px;
+  text-align: start;
+  color: #000000;
+  width: 90%;
+}
+
+.fview-content button {
+  font-size: 14px;
+  color: #ffffff;
+  background-color: transparent;
+  padding: 10px 30px;
+  border: 2px solid white;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 10px;
+  transition: 519ms;
+  font-weight: 700;
+  transform: translateY(0);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.fview-content button:hover {
+  transition: 519ms;
+  padding: 10px 37px;
+  transform: translateY(0);
+  background-color: #ffffff;
+  color: #c11c1a;
+  border: none;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 768px) {
+  .fview-content {
+    width: 60%; 
+    margin-left: 5px;
+    top: 5%;
+  }
+
+  .fview-content h1 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .fview-content p {
+    font-size: 0.7rem;
+  }
+
+  .fview-content button {
+    padding: 4px 10px;
+    font-size: 10px;
+  }
+
+  .fview-content button:hover {
+    padding: 5px 11px;
+    font-size: 10px;
+  }
+}
+
+
+/* Associations Section */
+.company-logos {
+  background-color: transparent;
+  text-align: center;
+  padding: 70px 20px 70px 20px;
+}
+
+.title {
+  margin-bottom: 40px;
+  color: #000000;
+  font-weight: 700;
+}
+
+.logos-container {
+  display: flex;
+  justify-content: space-around; /* Adjust spacing as needed */
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  margin: 20px; /* Adjust margin between logos */
+  transition: opacity 0.5s ease-in-out;
+  width: 150px; /* Set fixed width */
+  height: 100px; /* Set fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure logos maintain aspect ratio */
+}
+
+.slide-in-out {
+  transition: all 1s ease-out;
+}
+
+.fade-in-out {
+  transition: opacity 0.5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInOut {
+  0% {
+    transform: translateX(0%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/*STATS*/
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #c11c1a;
+  box-shadow: 0px 0px 18px 3px rgba(0,0,0,0.69);
+  padding: 30px 10px 30px 10px;
+}
+
+.stat {
+  text-align: center;
+  margin: 20px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  width: 200px; /* Fixed width */
+  height: 150px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #c11c1a;
+  border-radius: 10px;
+}
+
+.stat:hover {
+  transform: scale(1.1);
+}
+
+.stat h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+
+/*TUTORIAL*/
+.tutorial-area-container {
+  background-color: #c11c1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px;
+  box-shadow: 0px 0px 18px 3px rgba(0,0,0,0.69);
+
+}
+
+.tutorial-area-title {
+  font-size: 32px;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.tutorial-steps {
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.tutorial-step {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+.step-title {
+  display: inline-block;
+  color: #000000;
+}
+
+.tutorial-step .step-btn {
+  background-color: transparent;
+  border: none;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  color: #ffffff;
+}
+
+.tutorial-step .step-btn:hover{
+  transform: scale(1.1);
+}
+
+.tutorial-step p a{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tutorial-step p a:hover{
+  text-decoration: underline;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.step-description {
+  display: none;
+  font-weight: 400;
+}

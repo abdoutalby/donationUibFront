@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+
+    <div class="fview-container">
+        <!-- First section with background image -->
+        <div class="fview-background">
+            <img src="assets/bg.jpg" alt="Background Image">
+        </div>
+        <div class="fview-content">
+            <h1>Donnez aujourd'hui, changez demain</h1>
+            <p>Chez <b>DonByUIB</b>, votre générosité alimente nos efforts pour soutenir et élever ceux qui en ont besoin.
+                Faites un don maintenant pour <b>aider</b> à créer un avenir meilleur. Ensemble, nous pouvons faire la différence.
+                Chaque <b>contribution</b>, quelle que soit sa taille, compte et apporte une lueur <b>d'espoir</b> dans la vie de ceux que nous servons.</p>
+                <ng-container *ngIf="!isConnected()">
+                  <button mat-raised-button color="primary" routerLink="/about">À propos</button>
+                </ng-container>
+                <ng-container *ngIf="isConnected()">
+                  <button mat-raised-button color="primary" routerLink="/news">Nos Actualités</button>
+                </ng-container>                
+        </div>
+    </div>
+
+    <div class="company-logos">
+        <h2 class="title">Ils Nous Font Confiance</h2>
+        <div class="logos-container">
+        <div class="logo" *ngFor="let logo of displayedCompanies; let i = index">
+            <img [src]="logo" alt="Company Logo" [class.slide-in-out]="i === 0">
+        </div>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <div class="stat">
+          <h1 [countUp]="donneurCount" [options]="{ enableScrollSpy: true}">'+' 0</h1><!--, duration: 10 -->
+          <span class="stat-label">Donneur</span>
+        </div>
+        <div class="stat">
+          <h1 [countUp]="donataireCount" [options]="{ enableScrollSpy: true}">0</h1><!--, duration: 10 -->
+          <span class="stat-label">Donataire</span>
+        </div>
+        <div class="stat">
+          <h1 [countUp]="sponsorsCount" [options]="{ enableScrollSpy: true}">0</h1><!--, duration: 10 -->
+          <span class="stat-label">Sponsors</span>
+        </div>
+        <div class="stat">
+          <h1 [countUp]="donsCount" [options]="{ enableScrollSpy: true}">0</h1><!--, duration: 10 -->
+          <span class="stat-label">Dons</span>
+        </div>
+    </div>
+
+    <app-presque-fini></app-presque-fini>
+
+
+    <div class="tutorial-area-container">
+        <h2 class="tutorial-area-title">Comment ça marche ?</h2>
+        <div class="tutorial-steps">
+          <div class="tutorial-step">
+            <button id="step1-button" class="step-btn" (click)="toggleDescription('step1')">◖Découvrez nos projets◗</button>
+            <p class="step-description" id="step1-description"><a >Parcourez</a> notre catalogue de projets qui ont besoin de votre soutien.</p>
+          </div>
+          <div class="tutorial-step">
+            <button id="step2-button" class="step-btn" (click)="toggleDescription('step2')">◖Inscrivez-vous gratuitement◗</button>
+            <p class="step-description" id="step2-description"><a >Enregistrez-vous</a> pour créer un compte donateur et commencer à contribuer.</p>
+          </div>
+          <div class="tutorial-step">
+            <button id="step3-button" class="step-btn" (click)="toggleDescription('step3')">◖Choisissez un projet◗</button>
+            <p class="step-description" id="step3-description"><a >Explorez</a> les différents projets et choisissez celui que vous souhaitez soutenir.</p>
+          </div>
+          <div class="tutorial-step">
+            <button id="step4-button" class="step-btn" (click)="toggleDescription('step4')">◖Faites un don◗</button>
+            <p class="step-description" id="step4-description">Contribuez au projet de votre choix en faisant un don facilement en ligne.</p>
+          </div>
+          <div class="tutorial-step">
+            <button id="step5-button" class="step-btn" (click)="toggleDescription('step5')">◖Recevez des mises à jour◗</button>
+            <p class="step-description" id="step5-description">Suivez l'impact de votre contribution en recevant des mises à jour régulières sur le projet.</p>
+          </div>
+        </div>
+    </div>
+    
+    
+<app-footer></app-footer>

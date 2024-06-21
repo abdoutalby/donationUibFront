@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+
+<div class="project-details">
+  <div class="project-header">
+    <img [src]="project.image" alt="Image du Projet" class="project-image">
+    <div class="project-info">
+      <h1>{{ project.title }}</h1>
+      <p class="publisher">{{ project.publisher }}</p>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress" [style.width]="project.donationPercentage + '%'"></div>
+        </div>
+        <span class="progress-text">{{ project.donationPercentage }}% financé</span>
+      </div>
+      <button class="donate-btn" (click)="donate()">Faire un Don</button>
+    </div>
+  </div>
+
+  <div class="project-section">
+    <div class="section">
+      <h2>Description du Projet</h2>
+      <p>{{ project.description }}</p>
+    </div>
+
+    <div class="section">
+      <h2>Éditeur</h2>
+      <div class="publisher-info">
+        <img [src]="project.publisherAvatar" alt="Avatar de l'Éditeur" class="publisher-avatar">
+        <div class="info">
+          <h3>{{ project.publisherName }}</h3>
+          <p>{{ project.publisherBio }}</p>
+          <p>{{ project.publisherDetails }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Projets Connexes</h2>
+      <div class="related-projects">
+        <div class="related-project" *ngFor="let relatedProject of relatedProjects" (click)="goToProject(relatedProject)">
+          <img [src]="relatedProject.image" alt="Image du Projet Connexe" class="related-project-image">
+          <div class="related-info">
+            <h3>{{ relatedProject.title }}</h3>
+            <p>{{ relatedProject.shortDescription }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <div class="section">
+      <h2>Commentaires</h2>
+      <div class="comment" *ngFor="let comment of comments">
+        <h4>{{ comment.author }}</h4>
+        <p>{{ comment.text }}</p>
+        <small>{{ comment.date }}</small>
+      </div>
+      <div class="add-comment">
+        <h3>Ajouter un Commentaire</h3>
+        <textarea [(ngModel)]="newComment.text" placeholder="Votre commentaire..."></textarea>
+        <button (click)="addComment()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,59 @@
+.container {
+    padding: 100px 10px;
+    text-align: center;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-top: 30px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #c11c1a;
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    width: 100%; /* Ensure the input takes up full width of its container */
+    max-width: 400px; /* Limit to 400px */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .table th,
+  .table td {
+    padding: 25px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .table th,
+    .table td {
+      padding: 10px;
+    }
+  
+    .search-input {
+      width: 200px;
+    }
+  }
+  

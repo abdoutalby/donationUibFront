@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <app-adm-graph class="graph-container"></app-adm-graph> <!--RETURN EACH "CAMPAIGN" AND IT'S TOTAL DONATIONS-->
+
+    <h2>Gestion des Campagnes</h2>
+
+    <div class="search-container">
+      <input type="text" placeholder="Rechercher par ID, nom de la campagne ou nom du donataire" [(ngModel)]="searchQuery" class="search-input">
+    </div>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Nom</th>
+          <th>Date</th>
+          <th>Donneurs</th>
+          <th>But</th>
+          <th>Collecté</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let campaign of filteredCampaigns">
+          <td>{{ campaign.id }}</td>
+          <td><img src="{{ campaign.image }}" alt="Campaign Image" class="campaign-image"></td>
+          <td>{{ campaign.nom }}</td>
+          <td>{{ campaign.date }}</td>
+          <td>{{ campaign.nombreDonneurs }}</td>
+          <td>{{ campaign.but }}</td>
+          <td>{{ campaign.collected }}</td>
+          <td>
+            <span class="status-circle"
+                  [ngClass]="{'status-active': campaign.isActive, 'status-inactive': !campaign.isActive}"
+                  [matTooltip]="campaign.isActive ? '' : 'Campagne inactive'">
+            </span>
+          </td>
+          <td>
+            <button *ngIf="campaign.isActive" class="action-button" (click)="confirmHide(campaign)">Cacher</button>
+            <button *ngIf="!campaign.isActive" class="action-button" (click)="revealCampaign(campaign)">Révéler</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<app-footer></app-footer>

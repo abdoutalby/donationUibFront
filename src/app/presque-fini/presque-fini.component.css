@@ -1,0 +1,202 @@
+.presque-fini-container {
+    text-align: center;
+    padding: 80px 0;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 18px 3px rgba(0, 0, 0, 0.69);
+}
+
+.presque-fini-container h2 {
+    margin-bottom: 60px;
+    font-weight: 700;
+    color: #c11c1a;
+    font-size: 35px;
+}
+
+.projects-carousel {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+  }
+  
+  .polaroid-card {
+    width: 100%; /* Ensure all cards take up the same width */
+    height: 100%; /* Ensure all cards have the same height */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures content is centered vertically */
+  }
+
+  .polaroid-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+   }
+  
+  .polaroid-card img {
+    width: 100%; /* Ensures the image fills the card */
+    height: 200px; /* Fixed height for consistent appearance */
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .polaroid-card .container {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  .polaroid-card h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .polaroid-card p {
+    margin: 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .polaroid-card .progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0;
+  }
+  
+  .polaroid-card .progress {
+    height: 100%;
+    background: linear-gradient(90deg, #c11c1a, #f96d00);
+    border-radius: 10px;
+    position: relative;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .polaroid-card .progress span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: white;
+    font-weight: bold;
+  }
+
+.polaroid-card .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #333; 
+    opacity: 0; 
+    transition: opacity 0.3s; 
+}
+
+.polaroid-card:hover .overlay {
+    opacity: 1; 
+}
+
+.nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 20px;
+    font-size: 3rem;
+    font-weight: 800;
+    border: none;
+    background-color: transparent;
+    color: #c11c1a;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s; 
+    outline: none;
+}
+
+.nav-btn:hover {
+    background-color: transparent;
+    transform: scale(1.15);
+    color: #c11c1a;
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .polaroid-card {
+        width: 18%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .polaroid-card {
+        width: 22%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .presque-fini-container {
+        padding: 30px;
+    }
+
+    .polaroid-card {
+        width: 28%;
+    }
+
+    .nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+
+    .polaroid-card h3 {
+        font-size: 1rem;
+    }
+
+    .polaroid-card p {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .presque-fini-container {
+        padding: 0;
+    }
+
+    .polaroid-card {
+        width: 90%;
+    }
+
+    .nav-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 1rem;
+    }
+
+    .polaroid-card h3 {
+        font-size: 0.8rem;
+    }
+
+    .polaroid-card p {
+        font-size: 0.7rem;
+    }
+}

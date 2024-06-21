@@ -1,1 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: mahboula;
+    src: url(../fonts/Pangaialight.otf);
+}
+
+@font-face {
+    font-family: mahbboula;
+    src: url(../fonts/Pangaiabold.otf);
+}
+
+@font-face {
+    font-family: mahbbboula;
+    src: url(../fonts/Canopee.otf);
+}
+
+@font-face {
+    font-family: mahoula;
+    src: url(../fonts/artegra.otf);
+}
+
+
+@font-face {
+    font-family: aloalo;
+    src: url(../fonts/integral.otf);
+}
+
+
+@font-face {
+    font-family: harper;
+    src: url(../fonts/Harper.otf);
+}
+
+@font-face {
+    font-family: think;
+    src: url(../fonts/Think.ttf);
+}
+
+@font-face {
+    font-family: starife;
+    src: url(../fonts/Starife.ttf);
+}
+
+@font-face {
+    font-family: schabo;
+    src: url(../fonts/SCHABO.otf);
+}
+
+@font-face {
+    font-family: wosker;
+    src: url(../fonts/Wosker.otf);
+}
+
+@font-face {
+    font-family: ham;
+    src: url(../fonts/Hamsterly.ttf);
+}
+
+@font-face {
+    font-family: hershell;
+    src: url(../fonts/Hershell.otf);
+}
+
+
+

@@ -1,0 +1,79 @@
+<div class="overlay" [ngClass]="{ 'open': isMenuOpen, 'closing': isMenuClosing }">
+  <ng-container *ngIf="!getRole(); then visiteurContent"></ng-container>
+  <ng-container *ngIf="getRole() === 'donataire'; then donataireContent"></ng-container>
+  <ng-container *ngIf="getRole() === 'donneur'; then donneurContent"></ng-container>
+  <ng-container *ngIf="getRole() === 'admin'; then adminContent"></ng-container>
+
+  <!-- Default content for visiteur role -->
+  <ng-template #visiteurContent>
+    <div class="overlay-content">
+      <label (click)="closeMenuAndNavigate('/')">Accueil</label>
+      <label (click)="closeMenuAndNavigate('/about')">À propos</label>
+      <label (click)="closeMenuAndNavigate('/news')">Actualités</label>
+      <label (click)="closeMenuAndNavigate('/annonces')">Les Campagnes</label>
+    </div>
+
+    <div class="sub-nav">
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/login')">Se Connecter</label></p>
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/signup')">Créer Un Compte</label></p>
+      <p>.</p>
+    </div>
+  </ng-template>
+
+  <!-- Content for donataire role -->
+  <ng-template #donataireContent>
+    <div class="overlay-content">
+      <label (click)="closeMenuAndNavigate('/')">accueil</label>
+      <label (click)="closeMenuAndNavigate('/overview')">actualités</label>
+      <label (click)="closeMenuAndNavigate('/orgmanage')">mes campagnes</label>
+      <label (click)="closeMenuAndNavigate('/profile')">profil</label>
+    </div>
+
+    <div class="sub-nav">
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/changepass')">Changer mot de passe</label></p>
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/settings')">Déconnecter</label></p>
+      <p>.</p>
+    </div>
+  </ng-template>
+
+  <!-- Content for donneur role -->
+  <ng-template #donneurContent>
+    <div class="overlay-content">
+      <label (click)="closeMenuAndNavigate('/')">Accueil</label>
+      <label (click)="closeMenuAndNavigate('/annonces')">Les campagnes</label>
+      <label (click)="closeMenuAndNavigate('/mesdons')">Mes Dons</label>
+      <label (click)="closeMenuAndNavigate('/profile')">Profil</label>
+    </div>
+
+    <div class="sub-nav">
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/changepass')">Changer mot de passe</label></p>
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/settings')">Déconnecter</label></p>
+      <p>.</p>
+    </div>
+  </ng-template>
+
+  <!-- Content for admin role -->
+  <ng-template #adminContent>
+    <div class="overlay-content">
+      <label (click)="closeMenuAndNavigate('/mng-don')">Dons</label>
+      <label (click)="closeMenuAndNavigate('/mng-donataire')">donataire</label>
+      <label (click)="closeMenuAndNavigate('/mng-donneur')">donneur</label>
+      <label (click)="closeMenuAndNavigate('/mng-campagne')">campagnes</label>
+    </div>
+
+    <div class="sub-nav">
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/admin/users')">Changer mot de passe</label></p>
+      <p>.</p>
+      <p><label (click)="closeMenuAndNavigate('/admin/settings')">Déconnecter</label></p>
+      <p>.</p>
+    </div>
+  </ng-template>
+
+</div>

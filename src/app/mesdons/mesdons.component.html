@@ -1,0 +1,19 @@
+
+<app-navbar></app-navbar>
+<div class="bg">
+    <div class="mesdons-container">
+        <h2>Historique de Mes Dons</h2>
+        <ul>
+            <li *ngFor="let don of donations">
+                <div class="don-details">
+                    <span class="campaign-name">{{ don.campaignName }}</span>
+                    <span class="amount">{{ don.amount | currency:'TND' }}</span>
+                    <span class="date">{{ don.date | date: 'longDate' }}</span>
+                </div>
+                <a [routerLink]="['/details']" class="visit-button">Visiter la campagne</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<app-footer></app-footer>
+

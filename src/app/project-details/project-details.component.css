@@ -1,0 +1,261 @@
+/* Existing CSS here */
+
+.project-details {
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.project-image {
+  flex: 1 1 40%;
+  max-width: 40%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.project-info {
+  flex: 1 1 60%;
+  max-width: 60%;
+  padding: 0 20px;
+}
+
+.project-info h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #c11c1a;
+}
+
+.publisher {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.progress-container {
+  margin: 20px 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #c11c1a, #f96d00);
+  border-radius: 10px;
+  position: relative;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-text {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  color: white;
+  font-weight: bold;
+}
+
+.donate-btn {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  background-color: #c11c1a;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s, outline 0.1s; /* Include outline in the transition */
+  outline: none; 
+}
+
+.donate-btn:hover {
+  background-color: transparent;
+  outline: 2px solid #c11c1a; /* Use outline instead of border */
+  color: #c11c1a;
+}
+
+.project-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.section p {
+  color: #666;
+}
+
+.related-projects {
+  margin-top: 20px;
+}
+
+.related-project {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.related-project:hover {
+  background-color: #e9ecef;
+}
+
+.related-project-image {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.related-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.related-info p {
+  color: #666;
+}
+
+.publisher-info {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.publisher-avatar {
+  width: 200px;
+  height: 120px;
+  border-radius: 5%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.publisher-info .info {
+  text-align: start;
+}
+
+.publisher-info .info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.publisher-info .info p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.comments-section {
+  grid-column: 1 / -1;
+  margin-top: 30px;
+}
+
+.comments-section .section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.comments-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+.comment {
+  background-color: transparent;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.comment h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.comment p {
+  color: #666;
+}
+
+.comment small {
+  color: #999;
+}
+
+.add-comment {
+  margin-top: 20px;
+}
+
+.add-comment h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #333;
+}
+
+.add-comment textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.add-comment button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #c11c1a;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-comment button:hover {
+  background-color: #a51b17;
+}

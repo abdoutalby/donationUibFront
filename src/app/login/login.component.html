@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+
+<div class="bg">
+  <div class="container">
+    <div class="logo-section">
+      <img src="assets/UIB.png" alt="Logo">
+    </div>
+    <div class="form-section">
+      <h2>Se Connecter</h2>
+      <form [formGroup]="loginForm">
+        <div class="form-group">
+          <div class="input-box">
+            <input type="email" formControlName="email" required>
+            <label>Adresse email</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-box">
+            <input type="password" formControlName="password" required>
+            <label>Mot de passe</label>
+          </div>
+        </div>
+        <div class="remember-me-forgot-password">
+          <div class="remember-me">
+            <input type="checkbox" formControlName="rememberMe">
+            <span>Se souvenir de moi</span>
+          </div>
+          <div class="forgot-password">
+            <a (click)="forgotPassword()">Mot de passe oublié?</a>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Se Connecter</button>
+        <p>Vous n'avez pas un compte? <a routerLink="/signup">Créer un compte</a></p>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

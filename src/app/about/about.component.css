@@ -1,0 +1,269 @@
+/* Navbar placeholder */
+app-navbar {
+  display: block; /* Ensure it takes up space */
+  height: 60px; /* Adjust this to match your navbar height */
+}
+
+/* Container for full view section */
+.fview-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  box-shadow: 0px 0px 18px 3px rgba(0,0,0,0.69);
+}
+
+.fview-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.fview-background img {
+  width: 100%;
+  height: 100%; /* Ensure it takes up the full height */
+  object-fit: cover; /* Ensure the image covers the container */
+}
+
+.fview-content {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  margin-left: 20px;
+  width: 60%; /* Adjusted width for each content section */
+  padding: 0 20px;
+  color: #ffffff;
+  text-align: left;
+}
+
+.fview-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.fview-content p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  text-align: start;
+  color: #000000;
+  width: 90%;
+}
+
+.fview-content button {
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: transparent;
+  padding: 10px 30px;
+  border: 2px solid white;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 10px;
+  transition: 519ms;
+  font-weight: 700;
+  transform: translateY(0);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.fview-content button:hover {
+  transition: 519ms;
+  padding: 10px 37px;
+  transform: translateY(0);
+  background-color: #ffffff;
+  color: #c11c1a;
+  border: none;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 1200px) {
+  .fview-content {
+    width: 70%; 
+    margin-left: 10px;
+    top: 15%;
+  }
+
+  .fview-content h1 {
+    font-size: 2rem;
+  }
+
+  .fview-content p {
+    font-size: 1rem;
+  }
+
+  .fview-content button {
+    padding: 8px 25px;
+    font-size: 0.9rem;
+  }
+
+  .fview-content button:hover {
+    padding: 8px 25px;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .fview-content {
+    width: 80%; 
+    margin-left: 5px;
+    top: 10%;
+  }
+
+  .fview-content h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .fview-content p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .fview-content button {
+    padding: 6px 20px;
+    font-size: 0.8rem;
+  }
+
+  .fview-content button:hover {
+    padding: 6px 20px;
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .fview-content {
+    width: 90%; 
+    margin-left: 5px;
+    top: 5%;
+  }
+
+  .fview-content h1 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .fview-content p {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+  }
+
+  .fview-content button {
+    padding: 5px 15px;
+    font-size: 0.7rem;
+  }
+
+  .fview-content button:hover {
+    padding: 5px 15px;
+    font-size: 0.7rem;
+  }
+}
+
+.whycont {
+  padding: 80px 20px; /* Added padding for smaller screens */
+  background-color: transparent;
+}
+
+.next-area-title {
+  text-align: center;
+  margin-bottom: 70px;
+  font-weight: 700;
+  color: #c11c1a;
+}
+
+.next-area-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping for smaller screens */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.left-section,
+.center-section,
+.right-section {
+  flex: 1; /* Flex-grow to take available space */
+  min-width: 250px; /* Ensures minimum width for each section */
+  max-width: 400px; /* Optional max width */
+  margin: 20px; /* Adjust as needed */
+  text-align: center;
+}
+
+.left-section i,
+.center-section i,
+.right-section i {
+  font-size: 70px;
+  margin-bottom: 30px;
+  transition: transform 0.3s;
+}
+
+.left-section i:hover,
+.center-section i:hover,
+.right-section i:hover {
+  transform: scale(1.1);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #c11c1a;
+}
+
+.section-text {
+  font-size: 1rem;
+  margin: 10px 0; /* Optional margin for spacing */
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1200px) {
+  .next-area-container {
+    flex-direction: row;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .section-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .next-area-container {
+    flex-direction: column; /* Stacks the sections vertically */
+  }
+
+  .left-section,
+  .center-section,
+  .right-section {
+    width: 80%; /* Adjust width for smaller screens */
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .section-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .section-text {
+    font-size: 0.75rem;
+  }
+
+  .left-section i,
+  .center-section i,
+  .right-section i {
+    font-size: 50px;
+  }
+}

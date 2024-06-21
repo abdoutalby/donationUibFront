@@ -1,0 +1,93 @@
+<app-navbar></app-navbar>
+
+<div class="les-annonces-container">
+  <div class="search-bar">
+    <input type="text" placeholder="Rechercher des projets par nom ou filière" [(ngModel)]="searchQuery" (input)="onSearch()" />
+  </div>
+
+  <div class="content">
+    <div class="filter-section">
+      <h3>Filtrer par:</h3>
+
+      <div class="filter">
+        <h4>Alphabet</h4>
+        <label class="radio-label">
+          <input type="radio" id="az" name="alphabet" value="asc" (change)="onSortAlphabetChange('asc')" [checked]="sortAlphabet === 'asc'" />
+          <span class="custom-radio"></span>
+          <span>A-Z</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" id="za" name="alphabet" value="desc" (change)="onSortAlphabetChange('desc')" [checked]="sortAlphabet === 'desc'" />
+          <span class="custom-radio"></span>
+          <span>Z-A</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" id="none" name="alphabet" value="none" (change)="onSortAlphabetChange('')" [checked]="sortAlphabet === ''" />
+          <span class="custom-radio"></span>
+          <span>Aucun</span>
+        </label>
+      </div>
+
+      <div class="filter">
+        <h4>Progrès</h4>
+        <label class="radio-label">
+          <input type="radio" id="progress0" name="progress" value="0%" (change)="onSortProgressChange('0%')" [checked]="sortProgress === '0%'" />
+          <span class="custom-radio"></span>
+          <span>0%</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" id="progressGreater" name="progress" value=">50%" (change)="onSortProgressChange('>50%')" [checked]="sortProgress === '>50%'" />
+          <span class="custom-radio"></span>
+          <span>>50%</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" id="progressLess" name="progress" value="<50%" (change)="onSortProgressChange('<50%')" [checked]="sortProgress === '<50%'" />
+          <span class="custom-radio"></span>
+          <span><50%</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" id="progressNone" name="progress" value="none" (change)="onSortProgressChange('')" [checked]="sortProgress === ''" />
+          <span class="custom-radio"></span>
+          <span>Aucun</span>
+        </label>
+      </div>
+
+      <div class="filter">
+        <h4>Filière d'activité</h4>
+        <select [(ngModel)]="selectedCategory" (change)="onCategoryChange($event)">
+          <option value="">Toutes les filières</option>
+          <option value="Eau">Eau</option>
+          <option value="Santé">Santé</option>
+          <option value="Éducation">Éducation</option>
+          <option value="Énergie">Énergie</option>
+          <!-- Add more categories as needed -->
+        </select>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="projects-section">
+        <div *ngIf="searchError">
+            <p class="no-results">{{ searchError }}</p>
+        </div>
+        <div class="projects-grid">
+            <div class="polaroid-card" *ngFor="let project of filteredProjects" routerLink="/details">
+              <img [src]="project.image" alt="{{ project.title }}">
+              <div class="container">
+                  <h3>{{ project.title }}</h3>
+                  <p>{{ project.shortDescription }}</p>
+                  <div class="progress-bar">
+                  <div class="progress" [style.width]="project.progress + '%'">
+                      <span>{{ project.progress }}%</span>
+                  </div>
+                  </div>
+              </div>
+              <div class="overlay">Voir</div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

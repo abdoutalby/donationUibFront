@@ -1,0 +1,23 @@
+<div class="presque-fini-container">
+    <h2>Presque Fini</h2>
+  
+    <div class="projects-carousel">
+        <button class="nav-btn prev-btn" (click)="prevProject()">&#8249;</button>
+        <div *ngFor="let project of displayedProjects" class="polaroid-card" [routerLink]="['/details']">
+            <img [src]="project.image" alt="Project Image">
+            <div class="container">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.publisher }}</p>
+                <div class="progress-bar">
+                    <div class="progress" [style.width]="(project.raised / project.goal) * 100 + '%'">
+                        <span>{{ (project.raised / project.goal) * 100 | number:'1.0-0' }}%</span>
+                    </div>
+                </div>
+                <p>Goal: {{ project.goal | currency:'USD':'symbol' }}</p>
+                <p>Raised: {{ project.raised | currency:'USD':'symbol' }}</p>
+            </div>
+            <div class="overlay">Voir</div>
+        </div>
+        <button class="nav-btn next-btn" (click)="nextProject()">&#8250;</button>
+    </div>    
+</div>

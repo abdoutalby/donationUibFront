@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+
+    <div class="fview-container">
+        <!-- First section with background image -->
+        <div class="fview-background">
+            <img src="assets/pv.jpg" alt="Background Image">
+        </div>
+        <div class="fview-content">
+            <h1>Bienvenue sur DonBYUIB</h1>
+            <p>Nous nous engageons à promouvoir une communauté où la <b>générosité</b> prospère. 
+                Que vous soyez passionné par le soutien aux <b>charités locales</b>, l'aide aux <b>causes mondiales</b>, 
+                ou l'assistance aux <b>personnes dans le besoin</b>.<br> <b>UIB</b> offre une plateforme 
+                fluide pour contribuer et réaliser un changement positif. 
+                <b>Rejoignez-nous</b> pour transformer la compassion en actions impactantes, une donation à la fois.</p>
+            <button mat-raised-button color="primary" (click)="GoToContribute('/login')">Contibuer</button>
+        </div>
+    </div>
+
+      <!--why?--> 
+    <div class="whycont">
+        <h1 class="next-area-title">Pourquoi nous choisir ?</h1>
+        <div class="next-area-container">
+        <div class="left-section">
+            <i class='bx bx-street-view'></i>
+            <h2 class="section-title">Transparence Impactante</h2>
+            <p class="section-text">Nous garantissons que chaque don a un impact clair et mesurable sur les projets soutenus.</p>
+        </div>
+    
+        <div class="center-section">
+            <i class='bx bxs-magic-wand'></i>
+            <h2 class="section-title">Expérience Utilisateur Optimisée</h2>
+            <p class="section-text">Notre plateforme offre une expérience fluide et intuitive, simplifiant vos démarches de donation.</p>
+        </div>
+        
+        <div class="right-section">
+            <i class='bx bxs-bell-plus'></i>
+            <h2 class="section-title">Diversité des Causes Soutenues</h2>
+            <p class="section-text">Nous soutenons une large gamme de causes locales et internationales, pour un impact global significatif.</p>
+        </div>
+        </div>
+    </div>
+
+    <app-reviews></app-reviews>
+
+<app-footer></app-footer>

@@ -1,0 +1,148 @@
+<app-navbar></app-navbar>
+<div class="bg">
+    <div class="container">
+        <div *ngIf="!selectedRole">
+            <h2>S'inscrire comme un</h2>
+            <button type="button" (click)="selectRole('donataire')">Donataire</button>
+            <button type="button" (click)="selectRole('donneur')">Donneur</button>
+        </div>
+
+        <div *ngIf="selectedRole === 'donataire'">
+            <div class="header-row">
+                <h2 (click)="clearSelection()" class="back-arrow">←</h2>
+                <h2>S'inscrire</h2>
+            </div>
+            <form #donataireForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>Vous êtes ?</label>
+                    <input type="radio" name="type" [(ngModel)]="donataire.type" value="association" required>Association
+                    <label for=""></label>
+                    <input type="radio" name="type" [(ngModel)]="donataire.type" value="entreprise" required>Entreprise
+                </div>
+
+                <div class="input-box">
+                    <label>Nom de l'organisation</label>
+                    <input type="text" name="organizationName" [(ngModel)]="donataire.organizationName" required class="full-width">
+                </div>
+
+                <div class="input-box">
+                    <label>Pays</label>
+                    <select name="country" [(ngModel)]="donataire.country" class="full-width">
+                        <option value="">Sélectionnez un pays</option>
+                        <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
+                    </select>
+                </div>
+
+                <label>Filiere d'activité</label>
+                <select name="activityField" [(ngModel)]="donataire.activityField" class="full-width">
+                    <option>Santé</option>
+                    <option>Sport</option>
+                    <option>Education</option>
+                </select>
+
+                <label>Logo de l'organisation</label>
+                <input type="file" name="logo" (change)="onFileChange($event, 'logo')" class="full-width">
+
+                <div class="section-divider"></div>
+
+                <label>Carte d'identité fiscale</label>
+                <input type="file" name="taxId" (change)="onFileChange($event, 'taxId')" class="full-width">
+
+                <div class="input-box">
+                    <label>RIB de l'association</label>
+                    <input type="text" name="rib" [(ngModel)]="donataire.rib" required class="full-width">
+                </div>
+
+                <label>Brève description de l'organisation</label>
+                <textarea name="description" [(ngModel)]="donataire.description" class="full-width"></textarea>
+
+                <div class="section-divider"></div>
+
+                <div class="input-box">
+                    <label>Adresse email</label>
+                    <input type="email" name="email" [(ngModel)]="donneur.email" required class="full-width">
+                </div>
+
+                <div class="input-box">
+                    <label>Mot de Passe</label>
+                    <input type="password" name="password" [(ngModel)]="donneur.password" required class="full-width">
+                </div>
+
+                <div class="input-box">
+                    <label>Re-tapez le mot de passe</label>
+                    <input type="password" name="confirmPassword" [(ngModel)]="donneur.confirmPassword" required class="full-width">
+                </div>
+
+                <div class="remember-me-forgot-password">
+                    <div class="remember-me">
+                        <input type="checkbox" name="acceptTerms" required> J'accepte les conditions générales d'utilisation
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Créer votre compte</button>
+                <p>Vous avez deja un compte? <a routerLink="/login">Se Connecter</a></p>
+            </form>
+        </div>
+
+        <div *ngIf="selectedRole === 'donneur'">
+            <div class="header-row">
+                <h2 (click)="clearSelection()" class="back-arrow">←</h2>
+                <h2>S'inscrire</h2>
+            </div>
+            <form #donneurForm="ngForm" (ngSubmit)="onSubmit()">
+                <div *ngIf="!donneur.isExistingClient">
+                    <div class="input-box">
+                        <label>Nom</label>
+                        <input type="text" name="firstName" [(ngModel)]="donneur.firstName" required class="full-width">
+                    </div>
+
+                    <div class="input-box">
+                        <label>Prénom</label>
+                        <input type="text" name="lastName" [(ngModel)]="donneur.lastName" required class="full-width">
+                    </div>
+
+                    <div class="input-box">
+                        <label>Date de naissance</label>
+                        <input type="date" name="birthDate" [(ngModel)]="donneur.birthDate" required class="full-width">
+                    </div>
+
+                    <div class="input-box">
+                        <label>Pays</label>
+                        <select name="country" [(ngModel)]="donneur.country" class="full-width">
+                            <option value="">Sélectionnez un pays</option>
+                            <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="input-box">
+                    <label>Adresse email</label>
+                    <input type="email" name="email" [(ngModel)]="donneur.email" required class="full-width">
+                </div>
+
+                <div class="input-box">
+                    <label>Mot de Passe</label>
+                    <input type="password" name="password" [(ngModel)]="donneur.password" required class="full-width">
+                </div>
+
+                <div class="input-box">
+                    <label>Re-tapez le mot de passe</label>
+                    <input type="password" name="confirmPassword" [(ngModel)]="donneur.confirmPassword" required class="full-width">
+                </div>
+
+                <div class="remember-me-forgot-password">
+                    <div class="remember-me">
+                        <input type="checkbox" name="acceptTerms" [(ngModel)]="donneur.acceptTerms" required> J'accepte les conditions générales d'utilisation
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Créer votre compte</button>
+                <p>Vous avez déjà un compte? <a routerLink="/login">Se Connecter</a></p>
+            </form>
+        </div>
+
+    </div>
+</div>
+<app-footer></app-footer>

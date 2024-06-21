@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2>Gestion des Dons</h2>
+
+    <div class="search-container">
+      <input type="text" placeholder="Rechercher par ID de donation, donneur, ou donee" [(ngModel)]="searchQuery" class="search-input">
+    </div>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>ID Donneur</th>
+          <th>ID Donataire</th>
+          <th>Date</th>
+          <th>Nom de la Campagne</th>
+          <th>Montant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donation of filteredDonations">
+          <td>{{ donation.id }}</td>
+          <td>{{ donation.idDonneur }}</td>
+          <td>{{ donation.idDonataire }}</td>
+          <td>{{ donation.date }}</td>
+          <td>{{ donation.nomCampagne }}</td>
+          <td>{{ donation.montant }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<app-footer></app-footer>

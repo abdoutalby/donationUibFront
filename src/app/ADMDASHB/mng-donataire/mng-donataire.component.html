@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <h2>Donataire en Attente</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nom</th>
+          <th>Type d'organisation</th>
+          <th>Filière d'activité</th>
+          <th>Pays</th>
+          <th>Carte d'identité fiscale</th>
+          <th>RIB</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donataire of pendingDonataires">
+          <td><img [src]="donataire.logo" alt="Logo" class="logo"></td>
+          <td>{{ donataire.nom }}</td>
+          <td>{{ donataire.type }}</td>
+          <td>{{ donataire.filiere }}</td>
+          <td>{{ donataire.pays }}</td>
+          <td><button *ngIf="donataire.carte" (click)="openFile(donataire.carte)">Voir</button></td>
+          <td>{{ donataire.rib }}</td>
+          <td>
+            <button class="accept-button" (click)="acceptDonataire(donataire)">Accepter</button>
+            <button class="refuse-button" (click)="confirmRefuse(donataire)">Refuser</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+  
+    <h2>Donataires Actifs</h2>
+    <app-adm-graph class="graph-container"></app-adm-graph><!--RETURN EACH "DONATAIRE" AND IT'S TOTAL DONATIONS-->
+
+    <div class="search-container">
+      <input type="text" placeholder="Rechercher par nom ou RIB" [(ngModel)]="searchQuery">
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Logo</th>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Filière</th>
+          <th>Pays</th>
+          <th>Nombre de campagnes</th>
+          <th>Total des dons</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donataire of filteredActiveDonataires">
+          <td>{{ donataire.id }}</td>
+          <td><img [src]="donataire.logo" alt="Logo" class="logo"></td>
+          <td>{{ donataire.nom }}</td>
+          <td>{{ donataire.type }}</td>
+          <td>{{ donataire.filiere }}</td>
+          <td>{{ donataire.pays }}</td>
+          <td>{{ donataire.nombreCampagnes }}</td>
+          <td>{{ donataire.totalDons }}</td>
+          <td>
+            <span class="status-circle" [class.status-active]="donataire.isActive" [class.status-inactive]="!donataire.isActive"></span>
+          </td>
+          <td>
+            <button *ngIf="donataire.isActive" (click)="confirmSuspend(donataire)">Suspendre</button>
+            <button *ngIf="!donataire.isActive" (click)="reactivateDonataire(donataire)">Réactiver</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<app-footer></app-footer>
