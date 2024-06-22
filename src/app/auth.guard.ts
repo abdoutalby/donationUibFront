@@ -26,16 +26,22 @@ export class AuthGuard implements CanActivate {
       return true; // User has access 
     } else {
         Swal.fire({
-          title: 'Unauthorized',
-          text: 'You are not authorized to access this page.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-          allowOutsideClick: false
-        }).then(() => {
-          window.history.back(); // Go back when OK is clicked
-        });
-      }
-
+            title: 'Accès non autorisé',
+            text: 'Vous n\'êtes pas autorisé à accéder à cette page.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false
+          }).then(() => {
+            // Ensure the redirection logic is correctly applied after the user acknowledges the alert
+            if (userRole === "donneur") {
+              this.router.navigate(['/']);
+            } else if (userRole === "donataire") {
+              this.router.navigate(['/overview']);
+            } else {
+              this.router.navigate(['/']);
+            }
+          });
+        }
       return false; // Deny access
     }
   }

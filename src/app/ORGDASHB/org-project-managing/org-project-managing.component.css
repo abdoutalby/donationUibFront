@@ -93,6 +93,28 @@
     background-color: red;
     box-shadow: 0 0 8px rgba(255, 0, 0, 1);
   }
+
+  .btn  {
+    width: 30%;
+    height: 45px;
+    margin-top: 40px;
+    background: #c11c1a;
+    border: none;
+    border-radius: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-size: 16px;
+    color: #f0f0f0;
+    font-weight: 600;
+    transition: transform 0.3s;
+  }
+  
+  .btn:hover {
+    transform: scale(0.99);
+    background-color: #f4f4f4;
+    border: 2px solid #c11c1a;
+    color: #c11c1a;
+  }
   
   /* Responsive Design */
   @media (max-width: 768px) {

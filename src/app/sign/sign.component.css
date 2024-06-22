@@ -32,6 +32,13 @@
     text-align: center;
     font-weight: 700;
   }
+
+  .error-message{
+    margin-top: -50px;
+    margin-bottom: 40px;
+    font-weight: 600;
+    color: #c11c1a;
+  }
   
   button[type="button"] {
     width: 100%;

@@ -22,7 +22,8 @@
 
                 <div class="input-box">
                     <label>Nom de l'organisation</label>
-                    <input type="text" name="organizationName" [(ngModel)]="donataire.organizationName" required class="full-width">
+                    <input type="text" name="organizationName" [(ngModel)]="donataire.organizationName" required class="full-width" #organizationName="ngModel" (ngModelChange)="validateOrganizationName(organizationName)">
+                    <small *ngIf="organizationNameError" class="error-message">{{ organizationNameError }}</small>
                 </div>
 
                 <div class="input-box">
@@ -50,27 +51,41 @@
 
                 <div class="input-box">
                     <label>RIB de l'association</label>
-                    <input type="text" name="rib" [(ngModel)]="donataire.rib" required class="full-width">
+                    <input type="text" name="rib" [(ngModel)]="donataire.rib" required class="full-width" #rib="ngModel" (ngModelChange)="validateRib(rib)">
+                    <small *ngIf="ribError" class="error-message">{{ ribError }}</small>
                 </div>
 
-                <label>Brève description de l'organisation</label>
-                <textarea name="description" [(ngModel)]="donataire.description" class="full-width"></textarea>
+                <div class="input-box">
+                    <label>Téléphone</label>
+                    <input type="text" name="phone" class="full-width" [(ngModel)]="donataire.phone" #phone="ngModel" (ngModelChange)="validatePhone(phone)" required>
+                    <small *ngIf="phoneError" class="error-message">{{ phoneError }}</small>
+                </div>
+
+                <div class="input-box">
+                    <label>Brève description de l'organisation</label>
+                    <textarea name="description" [(ngModel)]="donataire.description" class="full-width" #description="ngModel" (ngModelChange)="validateDescription(description)">
+                        <small *ngIf="descriptionError" class="error-message">{{ descriptionError }}</small>
+                    </textarea>
+                </div>
 
                 <div class="section-divider"></div>
 
                 <div class="input-box">
                     <label>Adresse email</label>
-                    <input type="email" name="email" [(ngModel)]="donneur.email" required class="full-width">
+                    <input type="email" name="email" [(ngModel)]="donataire.email" required class="full-width" #email="ngModel" (ngModelChange)="validateEmail(email)">
+                    <small *ngIf="emailError" class="error-message">{{ emailError }}</small>
                 </div>
 
                 <div class="input-box">
                     <label>Mot de Passe</label>
-                    <input type="password" name="password" [(ngModel)]="donneur.password" required class="full-width">
+                    <input type="password" name="password" [(ngModel)]="donataire.password" required class="full-width" #password="ngModel" (ngModelChange)="validatePassword(password)">
+                    <small *ngIf="passwordError" class="error-message">{{ passwordError }}</small>
                 </div>
 
                 <div class="input-box">
                     <label>Re-tapez le mot de passe</label>
-                    <input type="password" name="confirmPassword" [(ngModel)]="donneur.confirmPassword" required class="full-width">
+                    <input type="password" name="confirmPassword" [(ngModel)]="donataire.confirmPassword" required class="full-width" #confirmPassword="ngModel" (ngModelChange)="validateConfirmPassword(confirmPassword)">
+                    <small *ngIf="confirmPasswordError" class="error-message">{{ confirmPasswordError }}</small>
                 </div>
 
                 <div class="remember-me-forgot-password">
@@ -78,9 +93,8 @@
                         <input type="checkbox" name="acceptTerms" required> J'accepte les conditions générales d'utilisation
                     </div>
                 </div>
-
-                <button type="submit" class="btn">Créer votre compte</button>
-                <p>Vous avez deja un compte? <a routerLink="/login">Se Connecter</a></p>
+                
+                <button type="submit" class="full-width">S'inscrire</button>
             </form>
         </div>
 
@@ -90,59 +104,61 @@
                 <h2>S'inscrire</h2>
             </div>
             <form #donneurForm="ngForm" (ngSubmit)="onSubmit()">
-                <div *ngIf="!donneur.isExistingClient">
-                    <div class="input-box">
-                        <label>Nom</label>
-                        <input type="text" name="firstName" [(ngModel)]="donneur.firstName" required class="full-width">
-                    </div>
-
-                    <div class="input-box">
-                        <label>Prénom</label>
-                        <input type="text" name="lastName" [(ngModel)]="donneur.lastName" required class="full-width">
-                    </div>
-
-                    <div class="input-box">
-                        <label>Date de naissance</label>
-                        <input type="date" name="birthDate" [(ngModel)]="donneur.birthDate" required class="full-width">
-                    </div>
-
-                    <div class="input-box">
-                        <label>Pays</label>
-                        <select name="country" [(ngModel)]="donneur.country" class="full-width">
-                            <option value="">Sélectionnez un pays</option>
-                            <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
-                        </select>
-                    </div>
-
-                    <div class="section-divider"></div>
+                <div class="input-box">
+                    <label>Nom</label>
+                    <input type="text" name="firstName" [(ngModel)]="donneur.firstName" required class="full-width" #firstName="ngModel" (ngModelChange)="validateFirstName(firstName)">
+                    <small *ngIf="firstNameError" class="error-message">{{ firstNameError }}</small>
                 </div>
 
                 <div class="input-box">
+                    <label>Prénom</label>
+                    <input type="text" name="lastName" [(ngModel)]="donneur.lastName" required class="full-width" #lastName="ngModel" (ngModelChange)="validateLastName(lastName)">
+                    <small *ngIf="lastNameError" class="error-message">{{ lastNameError }}</small>
+                </div>
+
+                <div class="input-box">
+                    <label>Téléphone</label>
+                    <input type="text" name="phone" [(ngModel)]="donneur.phone" #phone="ngModel" (ngModelChange)="validatePhone($event)"  required class="full-width">
+                    <small *ngIf="phoneError" class="error-message">{{ phoneError }}</small>
+                </div>
+
+                <div class="input-box">
+                    <label>Pays</label>
+                    <select name="country" [(ngModel)]="donneur.country" class="full-width">
+                        <option value="">Sélectionnez un pays</option>
+                        <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
+                    </select>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="input-box">
                     <label>Adresse email</label>
-                    <input type="email" name="email" [(ngModel)]="donneur.email" required class="full-width">
+                    <input type="email" name="email" [(ngModel)]="donneur.email" required class="full-width" #email="ngModel" (ngModelChange)="validateEmail(email)">
+                    <small *ngIf="emailError" class="error-message">{{ emailError }}</small>
                 </div>
 
                 <div class="input-box">
                     <label>Mot de Passe</label>
-                    <input type="password" name="password" [(ngModel)]="donneur.password" required class="full-width">
+                    <input type="password" name="password" [(ngModel)]="donneur.password" required class="full-width" #password="ngModel" (ngModelChange)="validatePassword(password)">
+                    <small *ngIf="passwordError" class="error-message">{{ passwordError }}</small>
                 </div>
 
                 <div class="input-box">
                     <label>Re-tapez le mot de passe</label>
-                    <input type="password" name="confirmPassword" [(ngModel)]="donneur.confirmPassword" required class="full-width">
+                    <input type="password" name="confirmPassword" [(ngModel)]="donneur.confirmPassword" required class="full-width" #confirmPassword="ngModel" (ngModelChange)="validateConfirmPassword(confirmPassword)">
+                    <small *ngIf="confirmPasswordError" class="error-message">{{ confirmPasswordError }}</small>
                 </div>
 
                 <div class="remember-me-forgot-password">
                     <div class="remember-me">
-                        <input type="checkbox" name="acceptTerms" [(ngModel)]="donneur.acceptTerms" required> J'accepte les conditions générales d'utilisation
+                        <input type="checkbox" name="acceptTerms" required> J'accepte les conditions générales d'utilisation
                     </div>
                 </div>
 
-                <button type="submit" class="btn">Créer votre compte</button>
-                <p>Vous avez déjà un compte? <a routerLink="/login">Se Connecter</a></p>
+                <button type="submit" class="full-width">S'inscrire</button>
             </form>
         </div>
-
     </div>
 </div>
 <app-footer></app-footer>

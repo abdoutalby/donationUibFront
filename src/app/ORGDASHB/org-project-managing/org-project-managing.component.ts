@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 interface Campaign {
@@ -23,7 +24,7 @@ export class OrgProjectManagingComponent implements OnInit {
   campaigns: Campaign[] = [];
   filteredCampaigns: Campaign[] = [];
 
-  constructor() {
+  constructor( private router: Router ) {
     this.campaigns = [
       {
         name: 'Campagne 1',
@@ -95,5 +96,9 @@ export class OrgProjectManagingComponent implements OnInit {
         this.filterData(); // Réappliquer le filtre après la suppression
       }
     });
+  }
+  
+  addCampaign(){
+    this.router.navigate(['/create'])
   }
 }
