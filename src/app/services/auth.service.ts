@@ -15,6 +15,6 @@ export class AuthService {
 
   getUserRole(): string {
     //return localStorage.getItem('userRole') || ''; // Return user role from localStorage
-    return 'donneur'; // donneur - donataire - vide pour visiteur - admin
+    return 'admin'; // admin - donataire - vide pour visiteur - admin
   }
 }

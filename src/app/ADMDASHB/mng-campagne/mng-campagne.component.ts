@@ -7,6 +7,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./mng-campagne.component.css']
 })
 export class MngCampagneComponent implements OnInit {
+  pendingCampaigns: any[] = [
+    { image: 'path/to/image1.jpg', nom: 'Campagne en Attente A', organisme: 'Organisme A', cause: 'Cause A', objectif: 1000 },
+    { image: 'path/to/image2.jpg', nom: 'Campagne en Attente B', organisme: 'Organisme B', cause: 'Cause B', objectif: 2000 },
+    // Add more pending campaign data as needed
+  ];
+
   campaigns: any[] = [
     { id: 1, image: 'path/to/image1.jpg', nom: 'Campagne A', date: '2024-06-25', nombreDonneurs: 10, but: 1000, collected: 800, isActive: true },
     { id: 2, image: 'path/to/image2.jpg', nom: 'Campagne B', date: '2024-06-26', nombreDonneurs: 5, but: 500, collected: 300, isActive: false },
@@ -14,7 +20,6 @@ export class MngCampagneComponent implements OnInit {
   ];
 
   filteredCampaigns: any[] = [];
-
   searchQuery: string = '';
 
   constructor() { }
@@ -34,6 +39,48 @@ export class MngCampagneComponent implements OnInit {
     }
   }
 
+  acceptCampaign(campaign: any): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Campagne acceptée',
+      text: `${campaign.nom} a été acceptée avec succès!`,
+    }).then(() => {
+      this.pendingCampaigns = this.pendingCampaigns.filter(c => c !== campaign);
+      campaign.id = this.campaigns.length + 1;
+      campaign.date = new Date().toISOString().split('T')[0];
+      campaign.nombreDonneurs = 0;
+      campaign.collected = 0;
+      campaign.isActive = true;
+      this.campaigns.push(campaign);
+      this.filterCampaigns();
+    });
+  }
+
+  confirmRefuseCampaign(campaign: any): void {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, refuser!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.refuseCampaign(campaign);
+      }
+    });
+  }
+
+  refuseCampaign(campaign: any): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Campagne refusée',
+      text: `${campaign.nom} a été refusée avec succès!`,
+    }).then(() => {
+      this.pendingCampaigns = this.pendingCampaigns.filter(c => c !== campaign);
+    });
+  }
+
   confirmHide(campaign: any): void {
     Swal.fire({
       title: 'Êtes-vous sûr?',
@@ -46,20 +93,26 @@ export class MngCampagneComponent implements OnInit {
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Perform hide action here (e.g., update campaign status)
-        campaign.isActive = false; // Example: Set isActive to false
-        Swal.fire(
-          'Cachée!',
-          `La campagne "${campaign.nom}" a été cachée.`,
-          'success'
-        );
+        this.hideCampaign(campaign);
       }
     });
   }
 
+  hideCampaign(campaign: any): void {
+    campaign.isActive = false;
+    Swal.fire(
+      'Cachée!',
+      `La campagne "${campaign.nom}" a été cachée.`,
+      'success'
+    );
+  }
+
   revealCampaign(campaign: any): void {
-    // Perform reveal action here (e.g., update campaign status)
-    campaign.isActive = true; // Example: Set isActive to true
-    console.log(`Révéler la campagne "${campaign.nom}"`);
+    campaign.isActive = true;
+    Swal.fire(
+      'Révélée!',
+      `La campagne "${campaign.nom}" a été révélée.`,
+      'success'
+    );
   }
 }

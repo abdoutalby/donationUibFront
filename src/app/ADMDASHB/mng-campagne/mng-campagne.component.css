@@ -5,7 +5,7 @@
 
 .graph-container {
   display: inline-block;
-  margin: 0 auto 0 250px;
+  margin: 60px auto 0 250px;
 }
 
 h2 {
@@ -63,6 +63,14 @@ h2 {
 .table button:hover {
   text-decoration: underline;
   font-weight: 700;
+}
+
+.accept-button:hover {
+  color: green !important; /* Ensure the hover color overrides other styles */
+}
+
+.refuse-button:hover {
+  color: red !important; /* Ensure the hover color overrides other styles */
 }
 
 .status-circle {
