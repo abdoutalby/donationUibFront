@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+<div class="bg">
+    <div class="container">
+        <h2>Modifier la Campagne</h2>
+        <form [formGroup]="campaignUpdateForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+            <div class="form-group text-center">
+                <img [src]="imageSrc" alt="Campaign Image" class="campaign-image">
+                <input type="file" id="image" (change)="onFileChange($event)" class="form-control mt-3">
+            </div>
+
+            <div class="form-group">
+                <label for="nom">Nom : <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="nom" formControlName="nom" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="cause">Cause : <span style="color: red;">*</span></label>
+                <select id="cause" formControlName="cause" class="form-control" readonly>
+                    <option *ngFor="let cause of causes" [value]="cause">{{ cause }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="objectif">Objectif : <span style="color: red;">*</span></label>
+                <input type="number" class="form-control" id="objectif" formControlName="objectif" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description : <span style="color: red;">*</span></label>
+                <textarea class="form-control" id="description" formControlName="description" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn">Mettre à jour la Campagne</button>
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -5,7 +5,7 @@
             <div class="profile-photo">
                 <img [src]="userData.photoUrl" alt="Profile Photo">
                 <input type="file" id="photoInput" style="display: none" (change)="onPhotoSelected($event)">
-                <button (click)="editPhoto()">Edit Photo</button>
+                <button (click)="editPhoto()" [disabled]="!isEditMode">Changer Photo</button>
             </div>
 
             <div class="profile-details">
@@ -75,9 +75,11 @@
                         <div class="info">
                             <label>Filière d'activité</label>
                             <select name="activityField" [(ngModel)]="userData.filiereActivite" [disabled]="!isEditMode" class="full-width">
-                                <option>Santé</option>
-                                <option>Sport</option>
-                                <option>Education</option>
+                                <option value="Eau">Eau</option>
+                                <option value="Santé">Santé</option>
+                                <option value="Éducation">Éducation</option>
+                                <option value="Énergie">Énergie</option>
+                                <option value="Animaux">Animaux</option>
                             </select>
                         </div>
                     </div>

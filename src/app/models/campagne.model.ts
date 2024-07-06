@@ -1,4 +1,5 @@
 import { Commentaire } from './commentaire.model';
+import { Don } from './don.model'; 
 
 export class Campagne {
     campagneId!: number;
@@ -11,4 +12,5 @@ export class Campagne {
     statut!: 'actif' | 'suspendu'; 
     UserId!: number; 
     commentaires: Commentaire[] = []; 
+    dons: Don[] = []; // List of donations
 }

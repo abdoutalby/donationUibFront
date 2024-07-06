@@ -69,8 +69,7 @@ export class OrgProjectManagingComponent implements OnInit {
   }
 
   navigateToUpdateCampaign(campaignName: string) {
-    console.log('Naviguer vers la mise à jour de la campagne :', campaignName);
-    // Implémenter la logique de navigation ici
+    this.router.navigate(['/update'])
   }
 
   deleteCampaign(campaignName: string) {

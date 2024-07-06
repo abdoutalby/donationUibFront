@@ -17,10 +17,12 @@ import { MngDonneurComponent } from './ADMDASHB/mng-donneur/mng-donneur.componen
 import { MngDonComponent } from './ADMDASHB/mng-don/mng-don.component';
 import { MngCampagneComponent } from './ADMDASHB/mng-campagne/mng-campagne.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
+import { UpdateComponent } from './update/update.component';
 import { AuthGuard } from './auth.guard'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'update', component: UpdateComponent, canActivate: [AuthGuard], data: { roles: ['donataire'] } },
   { path: 'create', component: CreateCampaignComponent, canActivate: [AuthGuard], data: { roles: ['donataire'] } },
   { path: 'mng-campagne', component: MngCampagneComponent , canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'mng-don', component: MngDonComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },

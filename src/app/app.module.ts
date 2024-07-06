@@ -15,7 +15,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignComponent } from './sign/sign.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
-import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
 import { PresqueFiniComponent } from './presque-fini/presque-fini.component';
 import { AboutComponent } from './about/about.component';
 import { ReviewsComponent } from './reviews/reviews.component';
@@ -36,6 +35,7 @@ import { MngDonneurComponent } from './ADMDASHB/mng-donneur/mng-donneur.componen
 import { MngDonComponent } from './ADMDASHB/mng-don/mng-don.component';
 import { MngCampagneComponent } from './ADMDASHB/mng-campagne/mng-campagne.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
+import { UpdateComponent } from './update/update.component';
 
 
 @NgModule({
@@ -47,7 +47,6 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
     SignComponent,
     FooterComponent,
     HomeComponent,
-    CreateAnnouncementComponent,
     PresqueFiniComponent,
     AboutComponent,
     ReviewsComponent,
@@ -66,6 +65,7 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
     MngDonComponent,
     MngCampagneComponent,
     CreateCampaignComponent,
+    UpdateComponent,
     
   ],
   imports: [
