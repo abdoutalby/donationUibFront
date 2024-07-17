@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { UsersService } from '../services/users.service';
+import { DonService } from '../services/don.service';
+import { CampagneService } from '../services/campagne.service';
 
 
 @Component({
@@ -24,7 +27,49 @@ export class HomeComponent implements OnInit {
   sponsorsCountTriggered = false;
   donsCountTriggered = false;
   
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private userService :UsersService,
+    private donService : DonService, 
+    private campagneService : CampagneService,
+    private router: Router, private authService: AuthService) { }
+
+    getDonneur(){
+    this.userService.getTotalDonneur().subscribe({
+      next: (res : any )=> {
+        this.donneurCount  = res 
+        console.log("donneur "+ res);
+        
+      }
+    })
+  }
+
+  getTotalProjects(){
+    this.campagneService.getTotal().subscribe({
+      next : (res : any )=>{
+        this.sponsorsCount = res ;
+      }
+    })
+  }
+
+  getDonataire(){
+    this.userService.getTotalDonatiare().subscribe({
+      next: (res : any )=> {
+        this.donataireCount  = res 
+        console.log("donataire"+ res);
+
+      }
+    })
+  }
+
+  getDons(){
+  this.donService.getTotal().subscribe({
+        next: (res : any )=> {
+          this.donsCount  = res
+          console.log("dons "+ res);
+ 
+        }
+      })
+  }
 
   isConnected(): boolean {
     return this.authService.isAuthenticated();
@@ -39,7 +84,11 @@ export class HomeComponent implements OnInit {
     setInterval(() => {
       this.changeDisplayedLogos();
     }, 3000);
-  }
+    this.getDonataire()
+    this.getDonneur()
+    this.getDons()
+    this.getTotalProjects()
+   }
 
   changeDisplayedLogos() {
     this.currentIndex = (this.currentIndex + 3) % this.companies.length;

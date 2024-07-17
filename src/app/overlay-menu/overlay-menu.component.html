@@ -1,8 +1,8 @@
 <div class="overlay" [ngClass]="{ 'open': isMenuOpen, 'closing': isMenuClosing }">
   <ng-container *ngIf="!getRole(); then visiteurContent"></ng-container>
-  <ng-container *ngIf="getRole() === 'donataire'; then donataireContent"></ng-container>
-  <ng-container *ngIf="getRole() === 'donneur'; then donneurContent"></ng-container>
-  <ng-container *ngIf="getRole() === 'admin'; then adminContent"></ng-container>
+  <ng-container *ngIf="getRole() === 'TAKER'; then donataireContent"></ng-container>
+  <ng-container *ngIf="getRole() === 'GIVER'; then donneurContent"></ng-container>
+  <ng-container *ngIf="getRole() === 'ADMIN'; then adminContent"></ng-container>
 
   <!-- Default content for visiteur role -->
   <ng-template #visiteurContent>

@@ -4,7 +4,12 @@
         <h2>Modifier la Campagne</h2>
         <form [formGroup]="campaignUpdateForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
             <div class="form-group text-center">
-                <img [src]="imageSrc" alt="Campaign Image" class="campaign-image">
+                <img  
+                    width="200px"
+                    height="200px"
+                *ngIf="!imgChanged" src="http://localhost:8080/api/files/load/{{campaign.image}}" alt="Campaign Image" class="campaign-image">
+                
+                <img  *ngIf="imgChanged" [src]="imageSrc" alt="Campaign Image" class="campaign-image">
                 <input type="file" id="image" (change)="onFileChange($event)" class="form-control mt-3">
             </div>
 

@@ -29,18 +29,18 @@
       </thead>
       <tbody>
         <tr *ngFor="let campaign of filteredCampaigns">
-          <td><img [src]="campaign.image" alt="Campaign Image"></td>
-          <td>{{ campaign.name }}</td>
-          <td>{{ campaign.publishedDate }}</td>
-          <td>{{ campaign.donorsNb }}</td>
-          <td>{{ (campaign.raised / campaign.goal) * 100 | number:'1.0-0' }}%</td>
+          <td><img src="http://localhost:8080/api/files/load/{{campaign.image}}" alt="Campaign Image"></td>
+          <td>{{ campaign.nom }}</td>
+          <td>{{ campaign.campagneDate }}</td>
+          <td>{{ campaign.dons.length }}</td>
+          <td>{{ (campaign.montantCollecte / campaign.objectifCollecte) * 100 | number:'1.0-0' }}%</td>
           <td>{{ campaign.comments }}</td>
           <td>
               <span class="status-circle" [ngClass]="campaign.status === 0 ? 'status-inactive' : 'status-active'"
                     [matTooltip]="campaign.status === 0 ? 'Veuillez contacter l\'équipe à fin de savoir pourquoi' : ''">
               </span>
             </td>
-          <td><button (click)="navigateToUpdateCampaign(campaign.name)">Click</button></td>
+          <td><button (click)="navigateToUpdateCampaign(campaign.id)">Click</button></td>
           <td><button (click)="deleteCampaign(campaign.name)">Click</button></td>
         </tr>
       </tbody>

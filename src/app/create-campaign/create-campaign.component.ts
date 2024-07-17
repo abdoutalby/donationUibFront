@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { CampagneService } from '../services/campagne.service';
+import { FilesService } from '../services/files.service';
 
 @Component({
   selector: 'app-create-campaign',
@@ -12,7 +14,10 @@ export class CreateCampaignComponent implements OnInit {
   formSubmitted = false;
   causes: string[] = ['Santé', 'Sport', 'Éducation'];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder , 
+    private campagneService : CampagneService,
+    private fileService : FilesService,
+  ) {
     this.campaignCreationForm = this.formBuilder.group({
       nom: ['', Validators.required],
       image: [null, Validators.required],
@@ -35,22 +40,58 @@ export class CreateCampaignComponent implements OnInit {
     this.formSubmitted = true;
 
     if (this.campaignCreationForm.valid) {
-      const formData = new FormData();
-      formData.append('nom', this.campaignCreationForm.get('nom')?.value);
-      formData.append('image', this.campaignCreationForm.get('image')?.value);
-      formData.append('cause', this.campaignCreationForm.get('cause')?.value);
-      formData.append('objectif', this.campaignCreationForm.get('objectif')?.value);
-      formData.append('description', this.campaignCreationForm.get('description')?.value);
+      var body = new FormData() ;
+      body.append('file' , this.campaignCreationForm.get("image")!.value); 
+     
+      this.fileService.upload(body).subscribe({
+        next : (res : any )=> {
 
-      // Mocking an HTTP request
-      console.log('Campaign Data:', formData);
 
+      const campagne =  {
+        "nom" : this.campaignCreationForm.get("nom")?.value,
+        "image" :res.filename,
+         "objectifCollecte" : this.campaignCreationForm.get("objectif")?.value,
+        "description" : this.campaignCreationForm.get("description")?.value,
+        "campagneDate" : new Date() , 
+        "userId" : 1
+      }
+      this.campagneService.save(campagne).subscribe({
+        next : (res)=> {
+          console.log(res);
+          
       Swal.fire({
         title: 'Campagne créée avec succès!',
         text: 'Votre campagne a été créée avec succès.',
         icon: 'success',
         confirmButtonText: 'OK'
       });
+        },
+        error : (err : any )=> {
+          console.log(err);
+          
+      Swal.fire({
+        icon: 'error',
+        title: 'error',
+        text: 'something went wrong please try again.'+err.error.error,
+        confirmButtonText: 'OK'
+      });
+        }
+      })
+
+        },
+        error: (err : any )=> {
+          Swal.fire({
+            icon: 'error',
+            title: 'error uploading image',
+            text: 'something went wrong please try again.'+err.error.error,
+            confirmButtonText: 'OK'
+          });
+              
+        }
+      })
+       
+
+
     } else {
       Swal.fire({
         icon: 'error',

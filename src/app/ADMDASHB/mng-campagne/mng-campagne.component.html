@@ -2,7 +2,8 @@
 
 <div class="container">
   <h2>Campagnes en Attente</h2>
-  <table class="table">
+  <h4 *ngIf="pendingCampaigns.length == 0">acune campagnes en Attente </h4>
+  <table class="table" *ngIf="pendingCampaigns.length> 0">
     <thead>
       <tr>
         <th>Image</th>
@@ -15,13 +16,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let campagne of pendingCampaigns">
-        <td><img [src]="campagne.image" alt="Campaign Image" class="campaign-image"></td>
+        <td><img [src]="getFile(campagne.image)" alt="Campaign Image" class="campaign-image"></td>
         <td>{{ campagne.nom }}</td>
         <td>{{ campagne.organisme }}</td>
         <td>{{ campagne.cause }}</td>
         <td>{{ campagne.objectif }}</td>
         <td>
-          <button class="accept-button" (click)="acceptCampaign(campagne)">Accepter</button>
+          <button class="accept-button" (click)="changeCampaginStatus(campagne , 'ACTIF')">Accepter</button>
           <button class="refuse-button" (click)="confirmRefuseCampaign(campagne)">Refuser</button>
         </td>
       </tr>
@@ -53,21 +54,22 @@
     <tbody>
       <tr *ngFor="let campaign of filteredCampaigns">
         <td>{{ campaign.id }}</td>
-        <td><img src="{{ campaign.image }}" alt="Campaign Image" class="campaign-image"></td>
-        <td>{{ campaign.nom }}</td>
-        <td>{{ campaign.date }}</td>
-        <td>{{ campaign.nombreDonneurs }}</td>
-        <td>{{ campaign.but }}</td>
-        <td>{{ campaign.collected }}</td>
+        <td><img [src]="getFile(campaign.image)" 
+          alt="Campaign Image" class="image"></td>
+        <td>{{ campaign.nom ?? "campagne nom" }}</td>
+        <td>{{ campaign.campagneDate | date }}</td>
+        <td>{{ campaign.dons?.length ?? "campagne nb donneurs"}}</td>
+        <td>{{ campaign.objectifCollecte ?? "campagne objectif" }}</td>
+        <td>{{ campaign.montantCollecte }}</td>
         <td>
           <span class="status-circle"
-                [ngClass]="{'status-active': campaign.isActive, 'status-inactive': !campaign.isActive}"
+                [ngClass]="{'status-active': campaign.statut!='SUSPENDU', 'status-inactive': campaign.statut=='SUSPENDU'}"
                 [matTooltip]="campaign.isActive ? '' : 'Campagne inactive'">
           </span>
         </td>
         <td>
-          <button *ngIf="campaign.isActive" class="action-button" (click)="confirmHide(campaign)">Cacher</button>
-          <button *ngIf="!campaign.isActive" class="action-button" (click)="revealCampaign(campaign)">Révéler</button>
+          <button *ngIf="campaign.statut !='SUSPENDU'" class="action-button" (click)="confirmHide(campaign)">Cacher</button>
+          <button *ngIf="campaign.statut=='SUSPENDU'" class="action-button" (click)="changeCampaginStatus(campaign , 'ACTIF')">Révéler</button>
         </td>
       </tr>
     </tbody>

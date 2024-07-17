@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DonService } from '../../services/don.service';
+import { error } from 'highcharts';
+import { CommentaireService } from '../../services/commentaire.service';
+import { UsersService } from '../../services/users.service';
+import { CampagneService } from '../../services/campagne.service';
 
 interface Stat {
   label: string;
@@ -33,45 +38,74 @@ interface Comment {
 })
 export class OrgDashboardComponent implements OnInit {
 
-  recentDonations: Donation[] = [];
+  recentDonations: any [] = [];
   campaigns: Campaign[] = [];
-  recentComments: Comment[] = [];
+  recentComments: any  = [];
 
-  totalCount: number = 0;
-  donneurCount: number = 0;
-  campagneCount: number = 0;
+  totalCount: any  = 0;
+  donneurCount: any = 0;
+  campagneCount: any  = 0;
 
   totalCountTriggered: boolean = false;
   donneurCountTriggered: boolean = false;
   campagneCountTriggered: boolean = false;
 
-  constructor() {
-
-    this.recentDonations = [
-      { donor: 'Anis Ouerhani', amount: 500, date: new Date(), campaignName: 'Campagne 1' },
-      { donor: 'Houssem Kouki', amount: 250, date: new Date(), campaignName: 'Campagne 2' },
-      { donor: 'Hayder Thamlaoui', amount: 100, date: new Date(), campaignName: 'Campagne 3' }
-    ];
-    this.campaigns = [
-      { name: 'Campagne 1', description: 'Description de la campagne', goal: 10000, raised: 5000, image: 'assets/edu.jpg' },
-      { name: 'Campagne 2', description: 'Description de la campagne', goal: 20000, raised: 15000, image: 'assets/kids.jpg' },
-      { name: 'Campagne 3', description: 'Description de la campagne', goal: 10000, raised: 5000, image: 'assets/med.jpeg' },
-      { name: 'Campagne 4', description: 'Description de la campagne', goal: 17000, raised: 5000, image: 'assets/ener.jpeg' },
-      { name: 'Campagne 5', description: 'Description de la campagne', goal: 35000, raised: 0, image: 'assets/project.jpg' }
-    ];
-    this.recentComments = [
-      { userName: 'Anis', commentText: 'Super initiative!', campaignName: 'Campagne 1' },
-      { userName: 'Ayoub', commentText: 'Félicitations à toute l\'équipe!', campaignName: 'Campagne 3' },
-      { userName: 'Houssem', commentText: 'Continuez comme ça!', campaignName: 'Campagne 2' },
-      { userName: 'Hayder', commentText: 'Je suis fier de contribuer.', campaignName: 'Campagne 4' }
-    ];
-
-  }
+  constructor(
+    private userService : UsersService,
+    private donService :  DonService,
+    private commentsService : CommentaireService,
+    private campagneService : CampagneService,
+  ) { }
 
   ngOnInit(): void {
     this.triggerCountUp();
+    this.getDons()
+    this.getLatestComments()
+    this.getLatestDons()
+    this.getDonneur()
+    this.getTotalCampagne()
+  }
+  getLatestDons() {
+    this.donService.getLastThree().subscribe({
+      next : (res : any )=> {
+        this.recentDonations = res ;
+        console.log(res)
+      }
+    })  
   }
 
+  getTotalCampagne(){
+    this.campagneService.getAllByUserId(1).subscribe({
+      next : (res : any )=> {
+        console.log(res)
+        console.log(res.length);
+        this.campagneCount = res.length
+      }
+    })
+  }
+
+  getLatestComments(){
+    this.commentsService.getLatestComments().subscribe({
+      next : (res)=> {this.recentComments = res
+        console.log(this.recentComments)
+
+      } 
+    })
+  }
+
+  getDonneur(){
+    this.userService.getTotalDonneur().subscribe({
+      next : (res : any )=> this.donneurCount = res 
+    })
+  }
+  getDons(){
+    this.donService.getTotal().subscribe({
+      next  : (res)=> this.totalCount = res ,
+      error : (err)=> console.log(err)
+      
+      
+    })
+  }
   triggerCountUp() {
     if (!this.totalCountTriggered) {
       this.totalCountTriggered = true;

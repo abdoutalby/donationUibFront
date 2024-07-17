@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
+import { CampagneService } from '../services/campagne.service';
+import { CommentaireService } from '../services/commentaire.service';
 
 @Component({
   selector: 'app-project-details',
@@ -9,18 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./project-details.component.css']
 })
 export class ProjectDetailsComponent implements OnInit {
-  project: any = {
-    title: 'Initiative Eau Propre',
-    image: 'assets/water.jpg',
-    publisher: 'Fondation Eau pour Tous',
-    objectif: 10000, // goal of donations
-    collecte: 7500,  // amount collected
-    description: 'L\'Initiative Eau Propre vise à fournir de l\'eau potable propre et sûre aux communautés dans le besoin. Nous utilisons des systèmes de filtration avancés et l\'engagement communautaire pour assurer des solutions durables en matière d\'eau.',
-    publisherName: 'Fondation Eau pour Tous',
-    publisherBio: 'La Fondation Eau pour Tous est une organisation à but non lucratif dédiée à l\'amélioration de l\'accès à l\'eau potable dans le monde entier.',
-    publisherAvatar: 'assets/water.jpg'
-  };
-
+  project: any = {};
   relatedProjects: any[] = [
     {
       title: 'Santé pour Tous',
@@ -39,19 +30,47 @@ export class ProjectDetailsComponent implements OnInit {
     }
   ];
 
-  comments: any[] = [
-    { author: 'Alice', text: 'Super projet, bonne chance!', date: '2023-06-15' },
-    { author: 'Bob', text: 'Je soutiens pleinement cette initiative.', date: '2023-06-16' }
-  ];
+  comments: any[] = [];
 
   newComment: any = { text: '' };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getCurrentProject();
+    
+  }
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private campagneService : CampagneService,
+    private commentaireService : CommentaireService,
+    private activeRoute : ActivatedRoute,
+    private router: Router, private authService: AuthService) {}
 
   isConnected(): boolean {
     return this.authService.isAuthenticated();
+  }
+
+
+  getCurrentProject(){
+  var id = this.activeRoute.snapshot.params["id"] ;
+  console.log(id);
+  this.campagneService.getById(id).subscribe({
+    next : (res)=> {
+      console.log(res)
+      this.project = res ;
+
+      this.getProjectComments();
+      
+    },
+    error : (err)=> console.log(err)
+  })
+  }
+
+  getProjectComments(){
+    this.commentaireService.getAllByCampagne(this.project.id).subscribe({
+      next : (res : any )=> {
+        this.comments = res
+      }
+    })
   }
 
   donate() {
@@ -64,11 +83,16 @@ export class ProjectDetailsComponent implements OnInit {
 
   addComment() {
     if (this.isConnected()) {
-      this.comments.push({
-        author: 'Utilisateur',
-        text: this.newComment.text,
-        date: new Date().toISOString().split('T')[0]
-      });
+      
+       let comment =  {
+          "content" :this.newComment.text,
+          "userId" : 1,
+          "postId" : this.project.id
+      }
+      this.commentaireService.save(comment).subscribe({
+        next : (res)=> this.getCurrentProject()
+      })
+      
       this.newComment.text = '';
     } else {
       Swal.fire({

@@ -1,0 +1,39 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CampagneService {
+  getTotal() {
+    return this.http.get(this.url+"count")
+  }
+  getAllByUserId(id : any ) {
+    return this.http.get(this.url +"findAllByUserId/"+id)
+   }
+  
+
+  url = "http://localhost:8080/api/campagne/" ;
+  constructor(private http : HttpClient) { }
+
+  getAlmostFinished() {
+    return this.http.get(this.url +"almostFinished")
+   }
+
+
+  getAll(){
+    return this.http.get(this.url +"findAll")
+  }
+
+  getById(id : any ){
+    return this.http.get(this.url +"findById/"+id)
+  }
+
+  save(campagne : any ){
+    return this.http.post(this.url+"save" , campagne)
+  }
+  update(campaign: any) {
+    return this.http.put(this.url +"update/"+campaign.id , campaign)
+  }
+
+}

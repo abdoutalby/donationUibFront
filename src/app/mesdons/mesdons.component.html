@@ -6,11 +6,11 @@
         <ul>
             <li *ngFor="let don of donations">
                 <div class="don-details">
-                    <span class="campaign-name">{{ don.campaignName }}</span>
-                    <span class="amount">{{ don.amount | currency:'TND' }}</span>
-                    <span class="date">{{ don.date | date: 'longDate' }}</span>
+                    <span class="campaign-name">{{ don.id }}</span>
+                    <span class="amount">{{ don.montant | currency:'TND' }}</span>
+                    <span class="date">{{ don.donDate | date: 'longDate' }}</span>
                 </div>
-                <a [routerLink]="['/details']" class="visit-button">Visiter la campagne</a>
+                <a [routerLink]="['/details/',don.id]" class="visit-button">Visiter la campagne</a>
             </li>
         </ul>
     </div>

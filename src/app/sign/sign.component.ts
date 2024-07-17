@@ -237,6 +237,12 @@ export class SignComponent {
   }
 
   onSubmit(){
-    //
+   var body =  {
+      "name" : "test",
+      "email" : "admin@admin.com",
+      "username" : "test",
+      "password" : "test",
+      "userType" : "ADMIN"
+  }
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DonService } from '../../services/don.service';
 
 @Component({
   selector: 'app-mng-don',
@@ -6,22 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mng-don.component.css']
 })
 export class MngDonComponent implements OnInit {
-  donations: any[] = [
-    { id: 1, idDonneur: 1, idDonataire: 1, date: '2024-06-25', nomCampagne: 'Campagne A', montant: 500 },
-    { id: 2, idDonneur: 2, idDonataire: 1, date: '2024-06-26', nomCampagne: 'Campagne B', montant: 700 },
-    // Add more donation data as needed
-  ];
+  donations: any[] = [ ];
 
   filteredDonations: any[] = []; // Initialize filteredDonations as an empty array
 
   searchQuery: string = '';
 
-  constructor() { }
+  constructor(private donsService : DonService) { }
 
   ngOnInit(): void {
+    this.getAllDons();
     this.filteredDonations = this.donations; // Initialize filteredDonations with all donations
   }
 
+  getAllDons(){
+    this.donsService.getAll().subscribe({
+        next : (res :any )=> {
+          this.donations = res
+        }
+    })
+  }
   filterDonations(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredDonations = this.donations; // Show all donations if searchQuery is empty

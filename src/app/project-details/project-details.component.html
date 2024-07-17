@@ -2,19 +2,19 @@
 
 <div class="project-details">
   <div class="project-header">
-    <img [src]="project.image" alt="Image du Projet" class="project-image">
+    <img src="http://localhost:8080/api/files/load/{{project?.image}}" alt="Image du Projet" class="project-image">
     <div class="project-info">
-      <h1>{{ project.title }}</h1>
-      <p class="publisher">{{ project.publisher }}</p>
+      <h1>{{ project?.nom }}</h1>
+      <p class="publisher">{{ project?.user?.name }}</p>
       <div class="progress-container">
         <div class="progress-bar">
-          <div class="progress" [style.width]="(project.collecte / project.objectif) * 100 + '%'"></div>
+          <div class="progress" [style.width]="(project?.montantCollecte / project?.objectifCollecte) * 100 + '%'"></div>
         </div>
-        <span class="progress-text">{{ (project.collecte / project.objectif) * 100 | number:'1.0-2' }}% financé</span>
+        <span class="progress-text">{{ (project?.montantCollecte / project?.objectifCollecte) * 100 | number:'1.0-2' }}% financé</span>
       </div>
       <div class="donation-details">
-        <span class="objectif">Objectif: {{ project.objectif | currency:'TND' }}</span>
-        <span class="collecte">Collecté: {{ project.collecte | currency:'TND' }}</span>
+        <span class="objectif">Objectif: {{ project?.objectifCollecte | currency:'TND' }}</span>
+        <span class="collecte">Collecté: {{ project?.montantCollecte | currency:'TND' }}</span>
       </div>
       <button class="donate-btn" (click)="donate()">Faire un Don</button>
     </div>
@@ -23,17 +23,17 @@
   <div class="project-section">
     <div class="section">
       <h2>Description du Projet</h2>
-      <p>{{ project.description }}</p>
+      <p>{{ project?.description }}</p>
     </div>
 
     <div class="section">
       <h2>Éditeur</h2>
       <div class="publisher-info">
-        <img [src]="project.publisherAvatar" alt="Avatar de l'Éditeur" class="publisher-avatar">
+        <img [src]="project?.publisherAvatar" alt="Avatar de l'Éditeur" class="publisher-avatar">
         <div class="info">
-          <h3>{{ project.publisherName }}</h3>
-          <p>{{ project.publisherBio }}</p>
-          <p>{{ project.publisherDetails }}</p>
+          <h3>{{ project?.user?.name }}</h3>
+          <p>{{ project?.user?.email }}</p>
+          <p>{{ project?.publisherDetails }}</p>
         </div>
       </div>
     </div>
@@ -42,10 +42,10 @@
       <h2>Projets Connexes</h2>
       <div class="related-projects">
         <div class="related-project" *ngFor="let relatedProject of relatedProjects" (click)="goToProject(relatedProject)">
-          <img [src]="relatedProject.image" alt="Image du Projet Connexe" class="related-project-image">
+          <img [src]="relatedProject?.image" alt="Image du Projet Connexe" class="related-project-image">
           <div class="related-info">
-            <h3>{{ relatedProject.title }}</h3>
-            <p>{{ relatedProject.shortDescription }}</p>
+            <h3>{{ relatedProject?.title }}</h3>
+            <p>{{ relatedProject?.shortDescription }}</p>
           </div>
         </div>
       </div>
@@ -56,9 +56,9 @@
     <div class="section">
       <h2>Commentaires</h2>
       <div class="comment" *ngFor="let comment of comments">
-        <h4>{{ comment.author }}</h4>
-        <p>{{ comment.text }}</p>
-        <small>{{ comment.date }}</small>
+        <h4>{{ comment.user.name }}</h4>
+        <p>{{ comment.contenu }}</p>
+        <small>{{ comment.commentDate }}</small>
       </div>
       <div class="add-comment">
         <h3>Ajouter un Commentaire</h3>

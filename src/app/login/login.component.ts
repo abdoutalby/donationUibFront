@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,9 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor() { }
+  constructor(private authService : AuthService , 
+    private router : Router
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -20,6 +24,20 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  login(){
+    console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value).subscribe({
+      next : (res : any )=> {
+        console.log(res);
+        localStorage.setItem("token", res.token)
+        var role = this.authService.getUserRole()
+        switch(role){
+          case 'GIVER' : this.router.navigate(['/'])
+        }
+        this.router.navigate(['/annonces'])        
+      }
+    })
+  }
   forgotPassword(): void {
     Swal.fire({
       title: 'Mot de passe oublié?',
@@ -29,10 +47,16 @@ export class LoginComponent implements OnInit {
       confirmButtonText: 'Envoyer',
       cancelButtonText: 'Annuler'
     }).then((result) => {
-      if (result.value) {
-        // Send email to reset password
+      if (result.isConfirmed) {
+        var body = {
+          "email" : result.value
+        }
+        this.authService.forgetPassword(body).subscribe({
+          next : (res : any )=> {
         Swal.fire('Email envoyé!', 'Un email vous a été envoyé pour réinitialiser votre mot de passe.', 'success');
-      } else {
+          }
+        })
+         } else {
         Swal.fire('Erreur', 'Veuillez entrer votre adresse email.', 'error');
       }
     });

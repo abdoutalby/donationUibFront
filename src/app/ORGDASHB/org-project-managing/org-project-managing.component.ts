@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { CampagneService } from '../../services/campagne.service';
 
 interface Campaign {
   name: string;
@@ -22,37 +23,29 @@ export class OrgProjectManagingComponent implements OnInit {
   searchQuery: string = '';
   searchMessage: string = '';
   campaigns: Campaign[] = [];
-  filteredCampaigns: Campaign[] = [];
+  filteredCampaigns: any [] = [];
 
-  constructor( private router: Router ) {
-    this.campaigns = [
-      {
-        name: 'Campagne 1',
-        image: 'assets/edu.jpg',
-        publishedDate: '2023-01-01',
-        donorsNb: 50,
-        goal: 10000,
-        raised: 5000,
-        comments: 10,
-        status: 1
-      },
-      {
-        name: 'Campagne 2',
-        image: 'assets/kids.jpg',
-        publishedDate: '2023-02-01',
-        donorsNb: 75,
-        goal: 20000,
-        raised: 15000,
-        comments: 5,
-        status: 0
-      }
-      // Add more campaigns as needed
-    ];
+  constructor( 
+    private campagneService : CampagneService,
+    private router: Router ) {
+  }
+
+  ngOnInit(): void {
+
+    this.getUserCampagnes();
 
     this.filteredCampaigns = this.campaigns;
   }
-
-  ngOnInit(): void {}
+  getUserCampagnes(){
+    this.campagneService.getAllByUserId(1).subscribe({
+      next : (res : any )=> {
+        this.campaigns = res;
+        console.log(res);
+        this.filteredCampaigns = this.campaigns;
+      },
+      error : (err : any )=> console.error(err)
+    })
+  }
 
   filterData() {
     if (this.searchQuery.trim() === '') {
@@ -69,7 +62,7 @@ export class OrgProjectManagingComponent implements OnInit {
   }
 
   navigateToUpdateCampaign(campaignName: string) {
-    this.router.navigate(['/update'])
+    this.router.navigate(['/update', campaignName])
   }
 
   deleteCampaign(campaignName: string) {

@@ -72,14 +72,14 @@
             <p class="no-results">{{ searchError }}</p>
         </div>
         <div class="projects-grid">
-            <div class="polaroid-card" *ngFor="let project of filteredProjects" routerLink="/details">
-              <img [src]="project.image" alt="{{ project.title }}">
+            <div class="polaroid-card" *ngFor="let project of filteredProjects" routerLink="/details/{{project.id}}">
+              <img src="http://localhost:8080/api/files/load/{{project.image}}" alt="{{ project.nom }}">
               <div class="container">
-                  <h3>{{ project.title }}</h3>
-                  <p>{{ project.shortDescription }}</p>
+                  <h3>{{ project.nom }}</h3>
+                  <p>{{ project.description }}</p>
                   <div class="progress-bar">
-                  <div class="progress" [style.width]="project.progress + '%'">
-                      <span>{{ project.progress }}%</span>
+                  <div class="progress" [style.width]="getProgress(project)+ '%'">
+                      <span>{{ getProgress(project) }}%</span>
                   </div>
                   </div>
               </div>

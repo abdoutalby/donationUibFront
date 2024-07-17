@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { CampagneService } from '../services/campagne.service';
 
 interface Project {
   image: string;
@@ -14,27 +15,31 @@ interface Project {
   styleUrls: ['./presque-fini.component.css']
 })
 export class PresqueFiniComponent implements OnInit {
-  allProjects: Project[] = [
-    // Example projects
-    { image: 'assets/project.jpg', title: 'Initiative pour l\'eau potable', publisher: 'EauAid', goal: 20000, raised: 19000, },
-    { image: 'assets/project.jpg', title: 'Fournitures éducatives', publisher: 'Sauver les Enfants', goal: 10000, raised: 9100, },
-    { image: 'assets/project.jpg', title: 'Projet de reforestation', publisher: 'Terre Verte', goal: 17000, raised: 16900, },
-    { image: 'assets/project.jpg', title: 'Aide médicale pour les réfugiés', publisher: 'Médecins', goal: 25000, raised: 24000, },
-    { image: 'assets/project.jpg', title: 'Distribution alimentaire', publisher: 'Nourrir Palestine', goal: 45000, raised: 41000, },
-    { image: 'assets/project.jpg', title: 'Sauvetage des animaux', publisher: 'Protection des Animaux', goal: 10000, raised: 9300, },
-  
-    // Add more projects as needed
-  ];
+  allProjects: any[] = [];
 
-  displayedProjects: Project[] = [];
+  displayedProjects: any [] = [];
   currentIndex: number = 0;
   maxDisplayedProjects: number = 5;
 
+  constructor( private campagneService : CampagneService) {
+    
+  }
   ngOnInit() {
     this.updateMaxDisplayedProjects();
     this.updateDisplayedProjects();
+    this.getAlmostFinished()
   }
 
+
+  getAlmostFinished(){
+    this.campagneService.getAlmostFinished().subscribe({
+      next : (res : any )=> {
+        console.log(res);
+        this.allProjects  =res 
+        this.displayedProjects = this.allProjects
+      }
+    })
+  }
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateMaxDisplayedProjects();

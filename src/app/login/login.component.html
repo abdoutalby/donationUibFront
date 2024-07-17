@@ -29,7 +29,9 @@
             <a (click)="forgotPassword()">Mot de passe oublié?</a>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Se Connecter</button>
+        <button type="submit" class="btn btn-primary"
+        (click)="login()"
+        >Se Connecter</button>
         <p>Vous n'avez pas un compte? <a routerLink="/signup">Créer un compte</a></p>
       </form>
     </div>

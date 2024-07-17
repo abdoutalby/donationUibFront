@@ -30,10 +30,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let donation of recentDonations">
-          <td>{{ donation.donor }}</td>
-          <td>{{ donation.amount | currency:'TND':'symbol':'1.2-2' }}</td>
+          <td>{{ donation.id }}</td>
+          <td>{{ donation.montant | currency:'TND':'symbol':'1.2-2' }}</td>
           <td>{{ donation.campaignName }}</td>
-          <td>{{ donation.date | date:'shortDate' }}</td>
+          <td>{{ donation.donDate | date:'shortDate' }}</td>
         </tr>
       </tbody>
     </table>
@@ -63,8 +63,8 @@
     <h2>Derniers Commentaires</h2>
     <div class="comment-container">
       <div class="comment" *ngFor="let comment of recentComments">
-        <p><strong>{{ comment.userName }}</strong> a commenté sur la campagne <strong>{{ comment.campaignName }}</strong></p>
-        <p>"{{ comment.commentText }}"</p>
+        <p><strong>{{ comment.user.name }}</strong> a commenté sur la campagne <strong>{{ comment.campagne.nom }}</strong></p>
+        <p>"{{ comment.contenu }}"</p>
       </div>
     </div>
   </section>

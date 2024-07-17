@@ -18,7 +18,7 @@
       <tbody>
         <tr *ngFor="let donataire of pendingDonataires">
           <td><img [src]="donataire.logo" alt="Logo" class="logo"></td>
-          <td>{{ donataire.nom }}</td>
+          <td>{{ donataire.name }}</td>
           <td>{{ donataire.type }}</td>
           <td>{{ donataire.filiere }}</td>
           <td>{{ donataire.pays }}</td>
@@ -59,11 +59,11 @@
         <tr *ngFor="let donataire of filteredActiveDonataires">
           <td>{{ donataire.id }}</td>
           <td><img [src]="donataire.logo" alt="Logo" class="logo"></td>
-          <td>{{ donataire.nom }}</td>
+          <td>{{ donataire.name }}</td>
           <td>{{ donataire.type }}</td>
           <td>{{ donataire.filiere }}</td>
           <td>{{ donataire.pays }}</td>
-          <td>{{ donataire.nombreCampagnes }}</td>
+          <td>0</td>
           <td>{{ donataire.totalDons }}</td>
           <td>
             <span class="status-circle" [class.status-active]="donataire.isActive" [class.status-inactive]="!donataire.isActive"></span>

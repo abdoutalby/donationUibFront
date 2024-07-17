@@ -37,7 +37,7 @@ export class OverlayMenuComponent implements OnChanges {
     }, 700); // Delay should match CSS transition duration
   }
 
-  getRole(): string{ // changing content testing -> either : visiteur == "" || donataire || donneur || admin
-    return this.authService.getUserRole();
+  getRole(): string{     
+        return this.authService.getUserRole();
   }
 }

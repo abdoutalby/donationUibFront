@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CampagneService } from '../services/campagne.service';
 
 interface Project {
   title: string;
@@ -14,30 +15,36 @@ interface Project {
   styleUrls: ['./les-annonces.component.css']
 })
 export class LesAnnoncesComponent implements OnInit {
-  projects: Project[] = [
-    { title: 'Initiative Eau Propre', image: 'assets/water.jpg', progress: 75, category: 'Eau', shortDescription: "Fournir de l'eau propre." },
-    { title: 'Santé pour Tous', image: 'assets/med.jpeg', progress: 50, category: 'Santé', shortDescription: 'Accès aux soins de santé.' },
-    { title: 'Éducation pour Tous', image: 'assets/edu.jpg', progress: 85, category: 'Éducation', shortDescription: "Soutenir l'éducation globale." },
-    { title: 'Énergie Renouvelable', image: 'assets/ener.jpeg', progress: 40, category: 'Énergie', shortDescription: 'Solutions énergétiques.' },
-    { title: 'Conservation de la Faune', image: 'assets/tree.jpeg', progress: 30, category: 'Environnement', shortDescription: 'Conservation de la faune.' },
-    { title: 'Reboisement Urbain', image: 'assets/tree.jpeg', progress: 60, category: 'Environnement', shortDescription: 'Reboisement des villes.' },
-    { title: 'Accès Médical', image: 'assets/med.jpeg', progress: 90, category: 'Santé', shortDescription: 'Accès médical aux zones reculées.' },
-    { title: 'Tech pour Écoles', image: 'assets/kids.jpg', progress: 45, category: 'Éducation', shortDescription: 'Technologie dans les écoles.' },
-    { title: 'Énergies Vertes', image: 'assets/ener.jpeg', progress: 70, category: 'Énergie', shortDescription: 'Initiatives vertes.' },
-    { title: 'Sauvegarde des Océans', image: 'assets/ocean.jpg', progress: 55, category: 'Environnement', shortDescription: 'Conservation des océans.' },
-    { title: 'Formation Professionnelle', image: 'assets/training.jpg', progress: 35, category: 'Éducation', shortDescription: 'Formation professionnelle.' },
-    { title: 'Santé Mentale', image: 'assets/med.jpeg', progress: 25, category: 'Santé', shortDescription: 'Sensibilisation à la santé mentale.' }
-  ];
+getProgress(p: any) {
+  return  (p.montantCollecte / p.objectifCollecte) * 100
+}
+  projects:any [] = [];
 
-  filteredProjects: Project[] = [];
+  filteredProjects: any[] = [];
   searchQuery: string = '';
   selectedCategory: string = '';
   sortAlphabet: string = '';
   sortProgress: string = '';
   searchError: string = '';
 
+  constructor(private campagneService : CampagneService){
+
+  }
   ngOnInit(): void {
+    this.getCampagnes();
     this.filterProjects();
+
+  }
+  getCampagnes(){
+    this.campagneService.getAll().subscribe({
+      next : (res : any )=> {
+        this.projects=res;
+        console.log(res);
+        
+        this.filteredProjects = this.projects;
+      }
+
+    })
   }
 
   filterProjects(): void {

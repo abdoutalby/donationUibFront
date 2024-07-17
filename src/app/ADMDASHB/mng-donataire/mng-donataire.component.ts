@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { UsersService } from '../../services/users.service';
 
 interface Donataire {
   id?: number;
   logo: string;
-  nom: string;
+  name: string;
   type: string;
   filiere: string;
   pays: string;
   carte?: string;
   rib: string;
-  nombreCampagnes?: number;
+  namebreCampagnes?: number;
   totalDons?: number;
   isActive: boolean;
 }
@@ -20,66 +21,32 @@ interface Donataire {
   templateUrl: './mng-donataire.component.html',
   styleUrls: ['./mng-donataire.component.css']
 })
-export class MngDonataireComponent {
+export class MngDonataireComponent implements OnInit{
   searchQuery: string = '';
 
-  pendingDonataires: Donataire[] = [
-    {
-      logo: 'https://via.placeholder.com/50',
-      nom: 'Association A',
-      type: 'ONG',
-      filiere: 'Éducation',
-      pays: 'France',
-      carte: 'https://example.com/carte1.pdf',
-      rib: 'FR7630004000031234567890143',
-      isActive: false
-    },
-    {
-      logo: 'https://via.placeholder.com/50',
-      nom: 'Fondation B',
-      type: 'Fondation',
-      filiere: 'Santé',
-      pays: 'Belgique',
-      carte: 'https://example.com/carte2.pdf',
-      rib: 'BE68539007547034',
-      isActive: false
-    }
-  ];
+  pendingDonataires: Donataire[] = [];
 
-  activeDonataires: Donataire[] = [
-    {
-      id: 1,
-      logo: 'https://via.placeholder.com/50',
-      nom: 'Organisation C',
-      type: 'ONG',
-      filiere: 'Environnement',
-      pays: 'Suisse',
-      nombreCampagnes: 10,
-      totalDons: 5000,
-      isActive: true,
-      rib: 'CH9300762011623852957'
-    },
-    {
-      id: 2,
-      logo: 'https://via.placeholder.com/50',
-      nom: 'Charité D',
-      type: 'Charité',
-      filiere: 'Aide humanitaire',
-      pays: 'Canada',
-      nombreCampagnes: 5,
-      totalDons: 3000,
-      isActive: false,
-      rib: 'CA7452900021234567890'
-    }
-  ];
+  activeDonataires: Donataire[] = [];
 
   get filteredActiveDonataires(): Donataire[] {
     return this.activeDonataires.filter(donataire =>
-      donataire.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+      donataire.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
       donataire.rib?.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
 
+  constructor(private userService : UsersService){}
+  ngOnInit(): void {
+      this.getAllDonataires();
+  }
+  getAllDonataires(){
+    this.userService.getAllDonataires().subscribe({
+      next : (res : any )=> {
+        this.activeDonataires = res ;
+        this.pendingDonataires = res ;
+      }
+    })
+  }
   openFile(fileUrl?: string) {
     if (fileUrl) {
       window.open(fileUrl, '_blank');
@@ -96,7 +63,7 @@ export class MngDonataireComponent {
     Swal.fire({
       icon: 'success',
       title: 'Donataire accepté',
-      text: `${donataire.nom} a été accepté avec succès!`,
+      text: `${donataire.name} a été accepté avec succès!`,
     });
     // Implement accept logic
   }
@@ -120,7 +87,7 @@ export class MngDonataireComponent {
     Swal.fire({
       icon: 'success',
       title: 'Donataire refusé',
-      text: `${donataire.nom} a été refusé avec succès!`,
+      text: `${donataire.name} a été refusé avec succès!`,
     });
     // Implement refuse logic
   }
@@ -145,7 +112,7 @@ export class MngDonataireComponent {
     Swal.fire({
       icon: 'success',
       title: 'Donataire suspendu',
-      text: `${donataire.nom} a été suspendu avec succès!`,
+      text: `${donataire.name} a été suspendu avec succès!`,
     });
   }
 
@@ -154,7 +121,7 @@ export class MngDonataireComponent {
     Swal.fire({
       icon: 'success',
       title: 'Donataire réactivé',
-      text: `${donataire.nom} a été réactivé avec succès!`,
+      text: `${donataire.name} a été réactivé avec succès!`,
     });
   }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { CampagneService } from '../services/campagne.service';
+import { FilesService } from '../services/files.service';
 
 @Component({
   selector: 'app-update',
@@ -10,8 +13,15 @@ export class UpdateComponent implements OnInit {
   campaignUpdateForm!: FormGroup;
   causes: string[] = ['Eau', 'Santé', 'Éducation', 'Énergie', 'Animaux'];
   imageSrc!: string;
+  imgChanged = false ;
+   campaign : any  = {
+  };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private activeRoute :  ActivatedRoute,
+    private campagneService : CampagneService,
+    private fileService : FilesService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.campaignUpdateForm = this.fb.group({
@@ -26,26 +36,23 @@ export class UpdateComponent implements OnInit {
   }
 
   loadCampaignData(): void {
-    // Fake data
-    const campaign = {
-      nom: 'Animal Rescue',
-      cause: 'Animaux',
-      objectif: 5000,
-      description: 'Ceci est une description de campagne.',
-      imageUrl: 'assets/animal.jpg'
-    };
+  let id = this.activeRoute.snapshot.params['id']
+  this.campagneService.getById(id).subscribe({
+      next : (res)=> {
+        console.log(res)
+        this.campaign = res;
+        this.campaignUpdateForm.patchValue({
+          nom: this.campaign.nom,
+           objectif: this.campaign.objectifCollecte,
+          description: this.campaign.description
+        });
+      }
+  })
 
-    this.campaignUpdateForm.patchValue({
-      nom: campaign.nom,
-      cause: campaign.cause,
-      objectif: campaign.objectif,
-      description: campaign.description
-    });
-
-    this.imageSrc = campaign.imageUrl;
   }
 
   onFileChange(event: Event): void {
+    this.imgChanged  = true ;
     const reader = new FileReader();
     const input = event.target as HTMLInputElement;
 
@@ -64,15 +71,31 @@ export class UpdateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.campaignUpdateForm.valid) {
-      const formData = new FormData();
-      Object.keys(this.campaignUpdateForm.controls).forEach(key => {
-        const control = this.campaignUpdateForm.get(key);
-        if (control) {
-          formData.append(key, control.value);
-        }
-      });
+        console.log(this.campaignUpdateForm.get("image")!.value);
+        var body = new FormData() ;
+        body.append('file' , this.campaignUpdateForm.get("image")!.value); 
+        this.fileService.upload(body).subscribe(
+          {
+            next : (res : any )=> {
+              console.log(res)
+              this.campaign.image = res.filename ;
+              this.campaign.description = this.campaignUpdateForm.get("description")!.value
+              console.log(this.campaign)
+              this.campagneService.update(this.campaign).subscribe({
+                next : (res : any )=> {
+                  console.log("campagne updated succ");
+                },
+                error : (err : any )=>{
+                  console.log(err)
+                } 
+              })
+            },
+            error : (err)=> {
+              console.error(err)
+            }
+          }
+        )
 
-      console.log('Form data:', formData); // Just logging the form data for now
-    }
+          }
   }
 }

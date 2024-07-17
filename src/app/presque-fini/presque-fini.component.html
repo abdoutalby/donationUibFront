@@ -3,18 +3,18 @@
   
     <div class="projects-carousel">
         <button class="nav-btn prev-btn" (click)="prevProject()">&#8249;</button>
-        <div *ngFor="let project of displayedProjects" class="polaroid-card" [routerLink]="['/details']">
-            <img [src]="project.image" alt="Project Image">
+        <div *ngFor="let project of displayedProjects" class="polaroid-card" [routerLink]="['/details' , project.id]">
+            <img src="http://localhost:8080/api/files/load/{{project.image}}" alt="Project Image">
             <div class="container">
                 <h3>{{ project.title }}</h3>
                 <p>{{ project.publisher }}</p>
                 <div class="progress-bar">
-                    <div class="progress" [style.width]="(project.raised / project.goal) * 100 + '%'">
-                        <span>{{ (project.raised / project.goal) * 100 | number:'1.0-0' }}%</span>
+                    <div class="progress" [style.width]="(project.montantCollecte / project.objectifCollecte) * 100 + '%'">
+                        <span>{{ (project.montantCollecte / project.objectifCollecte) * 100 | number:'1.0-0' }}%</span>
                     </div>
                 </div>
-                <p>Objectif: {{ project.goal | currency:'TND':'symbol' }}</p>
-                <p>Collecté: {{ project.raised | currency:'TND':'symbol' }}</p>
+                <p>Objectif: {{ project.objectifCollecte | currency:'TND':'symbol' }}</p>
+                <p>Collecté: {{ project.montantCollecte | currency:'TND':'symbol' }}</p>
             </div>
             <div class="overlay">Voir</div>
         </div>

@@ -36,6 +36,8 @@ import { MngDonComponent } from './ADMDASHB/mng-don/mng-don.component';
 import { MngCampagneComponent } from './ADMDASHB/mng-campagne/mng-campagne.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 import { UpdateComponent } from './update/update.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/interceptors/http.interceptor';
 
 
 @NgModule({
@@ -76,10 +78,12 @@ import { UpdateComponent } from './update/update.component';
     CountUpModule,
     NgApexchartsModule,
     CommonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    HttpClientModule,
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
