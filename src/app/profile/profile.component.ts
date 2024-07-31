@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import * as countryList from 'country-list';
 import { AuthService } from '../services/auth.service';
+import { UsersService } from '../services/users.service';
 
 
 @Component({
@@ -35,8 +36,21 @@ export class ProfileComponent {
     email: 'jane.smith@example.com'
   };
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(
+    private userService : UsersService,
+    private router: Router,
+    private authService: AuthService) {
     this.updateUserData();
+  }
+
+  ngOnInit(){
+    console.log(this.authService.getUserRole());
+    this.userService.getUserById(this.authService.getUserId()).subscribe({
+      next : (res : any )=> {
+        console.log(res);
+        this.userData = res 
+      }
+    })
   }
 
   getUserRole(): string {
@@ -86,7 +100,15 @@ export class ProfileComponent {
 
   saveChanges() {
     this.isEditMode = false;
-    // Add logic to save changes here
+    this.userService.update(this.userData).subscribe({
+      next :(res : any )=> {
+        console.log(res);
+      },
+      error : (err : any )=> {
+        console.log(err);
+        
+      }
+    })
   }
 
   cancelEdit() {

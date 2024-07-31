@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
           case 'GIVER' : this.router.navigate(['/'])
         }
         this.router.navigate(['/annonces'])        
+      },
+      error : (err : any )=> {
+        Swal.fire(err.error.error , "please check your credentails and account state" , 'error')
       }
     })
   }

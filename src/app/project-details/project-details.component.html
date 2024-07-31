@@ -17,9 +17,10 @@
         <span class="collecte">Collecté: {{ project?.montantCollecte | currency:'TND' }}</span>
       </div>
       <button class="donate-btn" (click)="donate()">Faire un Don</button>
-    </div>
-  </div>
+    </div>    
+  </div>  
 
+   <app-payment *ngIf="showPayment"></app-payment>
   <div class="project-section">
     <div class="section">
       <h2>Description du Projet</h2>
@@ -42,10 +43,10 @@
       <h2>Projets Connexes</h2>
       <div class="related-projects">
         <div class="related-project" *ngFor="let relatedProject of relatedProjects" (click)="goToProject(relatedProject)">
-          <img [src]="relatedProject?.image" alt="Image du Projet Connexe" class="related-project-image">
+          <img src="http://localhost:8080/api/files/load/{{relatedProject?.image}}" alt="Image du Projet Connexe" class="related-project-image">
           <div class="related-info">
-            <h3>{{ relatedProject?.title }}</h3>
-            <p>{{ relatedProject?.shortDescription }}</p>
+            <h3>{{ relatedProject?.nom }}</h3>
+            <p>{{ relatedProject?.description }}</p>
           </div>
         </div>
       </div>

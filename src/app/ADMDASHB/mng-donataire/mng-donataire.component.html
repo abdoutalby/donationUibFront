@@ -2,7 +2,8 @@
 
 <div class="container">
     <h2>Donataire en Attente</h2>
-    <table class="table">
+    <h4 *ngIf="pendingDonataires.length==0">none</h4>
+    <table class="table" *ngIf="pendingDonataires.length>0">
       <thead>
         <tr>
           <th>Logo</th>
@@ -17,13 +18,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let donataire of pendingDonataires">
-          <td><img [src]="donataire.logo" alt="Logo" class="logo"></td>
+          <td><img src="http://localhost:8080/api/files/load/{{donataire.logo}}" alt="Logo" class="logo"></td>
           <td>{{ donataire.name }}</td>
-          <td>{{ donataire.type }}</td>
-          <td>{{ donataire.filiere }}</td>
-          <td>{{ donataire.pays }}</td>
-          <td><button *ngIf="donataire.carte" (click)="openFile(donataire.carte)">Voir</button></td>
-          <td>{{ donataire.rib }}</td>
+          <td>{{ donataire.donataire.type }}</td>
+          <td>{{ donataire.donataire.activityField }}</td>
+          <td>{{ donataire.donataire.country }}</td>
+          <td><button *ngIf="donataire.donataire.taxId"(click)="openFile(donataire.donataire.taxId)">Voir</button></td>
+          <td>{{ donataire.donataire.rib }}</td>
           <td>
             <button class="accept-button" (click)="acceptDonataire(donataire)">Accepter</button>
             <button class="refuse-button" (click)="confirmRefuse(donataire)">Refuser</button>
@@ -35,12 +36,18 @@
     
   
     <h2>Donataires Actifs</h2>
-    <app-adm-graph class="graph-container"></app-adm-graph><!--RETURN EACH "DONATAIRE" AND IT'S TOTAL DONATIONS-->
+
+    <h4 *ngIf="activeDonataires.length==0">none</h4>
+    <app-adm-graph 
+    *ngIf="showChart"
+    [data]="activeDonataires" 
+    [type] = "'donataire'"
+    class="graph-container"></app-adm-graph><!--RETURN EACH "DONATAIRE" AND IT'S TOTAL DONATIONS-->
 
     <div class="search-container">
       <input type="text" placeholder="Rechercher par nom ou RIB" [(ngModel)]="searchQuery">
     </div>
-    <table class="table">
+    <table class="table" *ngIf="activeDonataires.length>0">
       <thead>
         <tr>
           <th>id</th>
@@ -56,21 +63,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let donataire of filteredActiveDonataires">
+        <tr *ngFor="let donataire of activeDonataires | users : searchQuery">
           <td>{{ donataire.id }}</td>
           <td><img [src]="donataire.logo" alt="Logo" class="logo"></td>
           <td>{{ donataire.name }}</td>
-          <td>{{ donataire.type }}</td>
-          <td>{{ donataire.filiere }}</td>
-          <td>{{ donataire.pays }}</td>
-          <td>0</td>
-          <td>{{ donataire.totalDons }}</td>
+          <td>{{ donataire.donataire.type }}</td>
+          <td>{{ donataire.donataire.activityField }}</td>
+          <td>{{ donataire.donataire.country }}</td>
+          <td>{{donataire.nbCampagne}}</td>
+          <td>{{ donataire.donataire.totalRecived }}</td>
           <td>
-            <span class="status-circle" [class.status-active]="donataire.isActive" [class.status-inactive]="!donataire.isActive"></span>
+            <span class="status-circle" [class.status-active]="donataire.status == 'ENABLED'" [class.status-inactive]="donataire.status != 'ENABLED'"></span>
           </td>
           <td>
-            <button *ngIf="donataire.isActive" (click)="confirmSuspend(donataire)">Suspendre</button>
-            <button *ngIf="!donataire.isActive" (click)="reactivateDonataire(donataire)">Réactiver</button>
+            <button *ngIf="donataire.status == 'ENABLED'" (click)="confirmSuspend(donataire)">Suspendre</button>
+            <button *ngIf="donataire.status != 'ENABLED'" (click)="reactivateDonataire(donataire)">Réactiver</button>
           </td>
         </tr>
       </tbody>

@@ -19,10 +19,10 @@ export class AuthService {
   }
 
   register(register: any) {
-    return this.http.post(this.url + "/register", register)
+    return this.http.post(this.url + "register", register)
   }
   forgetPassword(body: { email: any; }) {
-    return this.http.post(this.url + "/forgetPassword", body)
+    return this.http.post(this.url + "forgetPassword", body)
   }
 
   getToken() {
@@ -36,6 +36,14 @@ export class AuthService {
     return token !== null;
   }
 
+  getUserId(){
+    if (this.isAuthenticated()) {
+      const token = localStorage.getItem("token");
+      var decoded = jwtDecode(token!);
+      var json: any = decoded;
+      return json.userId;
+    }
+  }
 
   getUserRole(): string {
     if (this.isAuthenticated()) {

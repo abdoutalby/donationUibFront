@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { UsersService } from '../services/users.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-change-password',
@@ -13,6 +16,12 @@ export class ChangePasswordComponent {
 
   passwordStrengthMessage: string = '';
   passwordStrengthColor: string = '';
+
+
+  constructor(
+    private router : Router,
+    private authService : AuthService,
+    private userService : UsersService){}
 
   checkPasswordStrength(): void {
 
@@ -49,12 +58,19 @@ export class ChangePasswordComponent {
   }
 
   changePassword() {
-    // Implement your change password logic here
-    if (this.newPassword !== this.confirmPassword) {
-      // Passwords match, proceed with changing password
-      const errorMessage = 'Password does not match. Please try again. ';
-      this.errorMessage = errorMessage; 
-      // Add your logic to call the API or service to change the password
-    } 
+       const body = {
+        email : this.authService.getUserId(),
+        password : this.newPassword
+      }
+      this.userService.changePassword(body).subscribe({
+        next : (res : any )=> {
+          this.router.navigate(['/'])
+        },
+        error : (err : any )=> {
+          console.log(err);
+          
+        }
+      })  
+  
   }
 }

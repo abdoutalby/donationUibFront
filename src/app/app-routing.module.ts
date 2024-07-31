@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'mng-donataire', component: MngDonataireComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
   { path: 'mesdons', component: MesdonsComponent, canActivate: [AuthGuard], data: { roles: ['GIVER'] } },
   { path: 'news', component: NewsComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { roles: ['GIVER','TAKER'] } },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { roles: ['GIVER','TAKER' , 'ADMIN'] } },
   { path: 'changepass', component: ChangePasswordComponent, canActivate: [AuthGuard], data: { roles: ['GIVER','TAKER','ADMIN'] } },
   { path: 'orgmanage', component: OrgProjectManagingComponent, canActivate: [AuthGuard], data: { roles: ['TAKER'] } },
   { path: 'overview', component: OrgDashboardComponent, canActivate: [AuthGuard], data: { roles: ['TAKER'] } },

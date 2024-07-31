@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CampagneService } from '../services/campagne.service';
 import { FilesService } from '../services/files.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-campaign',
@@ -17,6 +19,8 @@ export class CreateCampaignComponent implements OnInit {
   constructor(private formBuilder: FormBuilder , 
     private campagneService : CampagneService,
     private fileService : FilesService,
+    private authService : AuthService,
+    private router : Router,
   ) {
     this.campaignCreationForm = this.formBuilder.group({
       nom: ['', Validators.required],
@@ -51,20 +55,20 @@ export class CreateCampaignComponent implements OnInit {
         "nom" : this.campaignCreationForm.get("nom")?.value,
         "image" :res.filename,
          "objectifCollecte" : this.campaignCreationForm.get("objectif")?.value,
+         "cause" : this.campaignCreationForm.get("cause")?.value,
         "description" : this.campaignCreationForm.get("description")?.value,
         "campagneDate" : new Date() , 
-        "userId" : 1
+        "userId" : this.authService.getUserId()
       }
       this.campagneService.save(campagne).subscribe({
         next : (res)=> {
-          console.log(res);
-          
       Swal.fire({
         title: 'Campagne créée avec succès!',
         text: 'Votre campagne a été créée avec succès.',
         icon: 'success',
         confirmButtonText: 'OK'
       });
+      this.router.navigate(['/orgmanage'])
         },
         error : (err : any )=> {
           console.log(err);

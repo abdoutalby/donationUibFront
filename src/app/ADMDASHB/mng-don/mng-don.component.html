@@ -18,12 +18,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let donation of filteredDonations">
+        <tr *ngFor="let donation of donations">
           <td>{{ donation.id }}</td>
-          <td>{{ donation.idDonneur }}</td>
-          <td>{{ donation.idDonataire }}</td>
-          <td>{{ donation.date }}</td>
-          <td>{{ donation.nomCampagne }}</td>
+          <td>{{ donation.user.donneur.id }}</td>
+          <td>{{ donation.campagne.user.donataire.id }}</td>
+          <td>{{ donation.donDate }}</td>
+          <td>{{ donation.campagne.nom }}</td>
           <td>{{ donation.montant }}</td>
         </tr>
       </tbody>

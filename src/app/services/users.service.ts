@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UsersService {
+ 
   
   
 
@@ -12,12 +13,21 @@ export class UsersService {
   constructor(private http : HttpClient) { }
 
 
-  
+ 
+  changePassword(body: any) {
+    return this.http.put(this.url +"changePassword" , body)
+  }
+  update(donataire: any) { 
+    return this.http.post(this.url + "update/"+donataire.id, donataire)
+   }
+
   getAllAdmins() {
     return this.http.get(this.url+"totalAdmins");
    }
     
-
+   getUserById(id : any ){
+    return this.http.get(this.url +id)
+   }
    getAllDonataires() {
     return this.http.get(this.url+"totalDonataires");
    }

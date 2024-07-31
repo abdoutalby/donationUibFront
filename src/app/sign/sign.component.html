@@ -12,7 +12,7 @@
                 <h2 (click)="clearSelection()" class="back-arrow">←</h2>
                 <h2>S'inscrire</h2>
             </div>
-            <form #donataireForm="ngForm" (ngSubmit)="onSubmit()">
+            <form #donataireForm="ngForm" >
                 <div class="form-group">
                     <label>Vous êtes ?</label>
                     <input type="radio" name="type" [(ngModel)]="donataire.type" value="association" required>Association
@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="full-width">S'inscrire</button>
+                <button type="submit" class="full-width" (click)="onSubmit()" >S'inscrire</button>
                 <p>vous avez déjà un compte? <a routerLink="/login">Se connecter</a></p>
             </form>
         </div>

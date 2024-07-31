@@ -72,7 +72,7 @@
             <p class="no-results">{{ searchError }}</p>
         </div>
         <div class="projects-grid">
-            <div class="polaroid-card" *ngFor="let project of filteredProjects" routerLink="/details/{{project.id}}">
+            <div class="polaroid-card" *ngFor="let project of filteredProjects | project: searchQuery" routerLink="/details/{{project.id}}">
               <img src="http://localhost:8080/api/files/load/{{project.image}}" alt="{{ project.nom }}">
               <div class="container">
                   <h3>{{ project.nom }}</h3>

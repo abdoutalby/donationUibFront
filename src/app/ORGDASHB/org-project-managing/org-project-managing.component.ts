@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { CampagneService } from '../../services/campagne.service';
+import { AuthService } from '../../services/auth.service';
 
 interface Campaign {
   name: string;
@@ -27,6 +28,7 @@ export class OrgProjectManagingComponent implements OnInit {
 
   constructor( 
     private campagneService : CampagneService,
+    private authService : AuthService,
     private router: Router ) {
   }
 
@@ -37,7 +39,7 @@ export class OrgProjectManagingComponent implements OnInit {
     this.filteredCampaigns = this.campaigns;
   }
   getUserCampagnes(){
-    this.campagneService.getAllByUserId(1).subscribe({
+    this.campagneService.getAllByUserId(this.authService.getUserId()).subscribe({
       next : (res : any )=> {
         this.campaigns = res;
         console.log(res);

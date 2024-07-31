@@ -8,11 +8,10 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./mng-donneur.component.css']
 })
 export class MngDonneurComponent implements OnInit {
-  donneurs: any[] = [
-   ];
+  donneurs: any[] = [];
 
   filteredDonneurs: any[] = []; // Initialize filteredDonneurs as an empty array
-
+  showGraph = false ;
   searchQuery: string = '';
 
   constructor(
@@ -23,13 +22,15 @@ export class MngDonneurComponent implements OnInit {
     this.userService.getAllDonneurs().subscribe({
       next : (res : any )=> {
         this.donneurs = res
+        
         this.filteredDonneurs = this.donneurs; 
+        this.showGraph = true ;
       }
     })
   }
   ngOnInit(): void {
     this.getAllDonneurs()
-
+    
   }
 
   filterDonneurs(): void {
@@ -55,20 +56,49 @@ export class MngDonneurComponent implements OnInit {
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Perform suspend action here (e.g., update donneur status)
-        donneur.isActive = false; // Example: Set isActive to false
-        Swal.fire(
-          'Suspendu!',
-          `Le donneur ${donneur.nom} ${donneur.prenom} a été suspendu.`,
-          'success'
-        );
+       this. suspendDonneur(donneur);
       }
     });
   }
 
+  suspendDonneur(donneur: any) {
+    donneur.status = "DISABLED"
+    this.userService.update(donneur).subscribe({
+      next :(res : any )=> {
+        this.getAllDonneurs() 
+    Swal.fire({
+      icon: 'success',
+      title: 'donneur accepté',
+      text: `${donneur.name} a été accepté avec succès!`,
+    });
+      }
+    })
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'donneur refusé',
+      text: `${donneur.name} a été refusé avec succès!`,
+    });
+    
+  }
+
   reactivateDonneur(donneur: any): void {
-    // Logic to reactivate the donneur
-    console.log(`Réactiver ${donneur.nom}`);
-    // Additional logic (e.g., show confirmation dialog)
+    donneur.status = "ENABLED"
+    this.userService.update(donneur).subscribe({
+      next :(res : any )=> {
+        this.getAllDonneurs() 
+    Swal.fire({
+      icon: 'success',
+      title: 'donneur accepté',
+      text: `${donneur.name} a été accepté avec succès!`,
+    });
+      }
+    })
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'donneur refusé',
+      text: `${donneur.name} a été refusé avec succès!`,
+    });
   }
 }

@@ -40,4 +40,9 @@ export class OverlayMenuComponent implements OnChanges {
   getRole(): string{     
         return this.authService.getUserRole();
   }
+
+  logout(){
+    localStorage.clear()
+    this.router.navigate(['/login'])
+  }
 }

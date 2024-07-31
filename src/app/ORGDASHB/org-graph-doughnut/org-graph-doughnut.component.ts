@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import Chart from 'chart.js/auto'; // Import Chart.js
+import { CampagneService } from '../../services/campagne.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-org-graph-doughnut',
@@ -8,17 +10,20 @@ import Chart from 'chart.js/auto'; // Import Chart.js
 })
 export class OrgGraphDoughnutComponent {
   chart: any;
+  labes : any = []
+  data : any = []
+  constructor(
+    private authService : AuthService,
+    private campganeService : CampagneService) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  setupChart(){
     this.chart = new Chart('canvas', {
       type: 'doughnut',
       data: {
-        labels: ['campagne 1', 'campagne 2', 'campagne 3'], // Course names
+        labels: this.labes, // Course names
         datasets: [{
           label: 'Dons',
-          data: [5000, 17000, 10000], // Number of learners per course
+          data: this.data, // Number of learners per course
           backgroundColor: [
             'rgba(153, 0, 0, 0.2)',   // Dark red
             'rgba(0, 51, 102, 0.2)',  // Dark blue
@@ -40,6 +45,19 @@ export class OrgGraphDoughnutComponent {
         }
       }
     });
+  
   }
+  ngOnInit(): void {
+    this.campganeService.getAllByUserId(this.authService.getUserId()).subscribe({
+      next :  (res : any ) =>{ console.log(res)
+        for (let index = 0; index < res.length; index++) {
+          const element = res[index];
+          this.labes.push(element.nom)
+          this.data.push(element.montantCollecte)
+        }
+    this.setupChart();
+}})
+
+}
 }
 

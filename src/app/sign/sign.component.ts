@@ -1,6 +1,8 @@
 import { Component, NgZone } from '@angular/core';
 import * as countryList from 'country-list';
 import Swal from 'sweetalert2';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign',
@@ -54,7 +56,10 @@ export class SignComponent {
     { nom: 'Ayoub', prénom: 'Melki', date: '1992-02-02', country:'Bangladesh', phone: '50200300', rib: '123456789' }
   ];
 
-  constructor(private zone: NgZone) {}
+  constructor(
+    private authService : AuthService,
+    private router : Router,
+    private zone: NgZone) {}
 
   selectRole(role: string) {
     if (role === 'donneur') {
@@ -237,12 +242,61 @@ export class SignComponent {
   }
 
   onSubmit(){
+  if(this.selectedRole == "donneur"){
+    console.log(this.donneur);
    var body =  {
-      "name" : "test",
-      "email" : "admin@admin.com",
-      "username" : "test",
-      "password" : "test",
-      "userType" : "ADMIN"
+    "name" :  this.donneur.firstName,
+    "email" : this.donneur.email,
+    "username" : this.donneur.lastName,
+    "password" : this.donneur.password,
+    "userType" : "GIVER",
+    "donneur"  : {
+        "avatar" : "avatar",
+        "isExistingClient": this.donneur.isExistingClient,
+        "birthDate": this.donneur.birthDate,
+        "country" : this.donneur.country  }
+      }
+      this.authService.register(body).subscribe({
+        next : (res : any )=> {
+          this.router.navigate(['/login'])
+        },
+        error : (err)=> {
+          Swal.fire("error" , err.error.error , 'error')
+        }
+      })
   }
+  
+  if(this.selectedRole == "donataire"){
+
+    var taker = {
+      "name" : this.donataire.organizationName,
+        "email" : this.donataire.email,
+        "username" : this.donataire.organizationName,
+        "password" : this.donataire.password,
+        "userType" : "TAKER",
+        "donataire"  : {
+            "type" : this.donataire.type,
+            "organizationName":this.donataire.organizationName,
+            "activityField": this.donataire.activityField,
+            "country" : this.donataire.country,
+            "logo" : "this.donataire.logo",
+            "taxId" : "this.donataire.taxId.name",
+            "rib" : this.donataire.rib,
+            "description" : this.donataire.description
+        }
+    }
+    console.log(taker);
+    
+    this.authService.register(taker).subscribe({
+      next : (res : any )=> {
+        this.router.navigate(['/login'])
+      },
+      error : (err)=> {
+        Swal.fire("error" , err.error.error , 'error')
+      }
+    })
+  }
+  
+  
   }
 }

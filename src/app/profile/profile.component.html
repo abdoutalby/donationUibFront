@@ -10,11 +10,11 @@
 
             <div class="profile-details">
                 <!-- Donneur profile -->
-                <div *ngIf="userRole === 'donneur'">
+                <div *ngIf="userRole === 'GIVER'">
                     <div class="info-row">
                         <div class="info">
                             <label for="nom">Nom:</label>
-                            <input type="text" id="nom" [(ngModel)]="userData.nom" [disabled]="!isEditMode">
+                            <input type="text" id="nom" [(ngModel)]="userData.name" [disabled]="!isEditMode">
                         </div>
                         <div class="info">
                             <label for="prenom">Prénom:</label>
@@ -59,22 +59,22 @@
                 </div>
 
                 <!-- Donataire profile -->
-                <div *ngIf="userRole === 'donataire'">
+                <div *ngIf="userRole === 'TAKER'">
                     <div class="info-row">
                         <div class="info">
                             <label for="type">Type:</label>
-                            <input type="text" id="type" [(ngModel)]="userData.type" [disabled]="!isEditMode">
+                            <input type="text" id="type" [(ngModel)]="userData.donataire.type" [disabled]="!isEditMode">
                         </div>
                         <div class="info">
                             <label for="nom">Nom:</label>
-                            <input type="text" id="nom" [(ngModel)]="userData.nom" [disabled]="!isEditMode">
+                            <input type="text" id="nom" [(ngModel)]="userData.name" [disabled]="!isEditMode">
                         </div>
                     </div>
 
                     <div class="info-row">
                         <div class="info">
                             <label>Filière d'activité</label>
-                            <select name="activityField" [(ngModel)]="userData.filiereActivite" [disabled]="!isEditMode" class="full-width">
+                            <select name="activityField" [(ngModel)]="userData.donataire.activityField" [disabled]="!isEditMode" class="full-width">
                                 <option value="Eau">Eau</option>
                                 <option value="Santé">Santé</option>
                                 <option value="Éducation">Éducation</option>
@@ -87,7 +87,7 @@
                     <div class="info-row">
                         <div class="info">
                             <label for="description">Description:</label>
-                            <input type="text" id="description" [(ngModel)]="userData.description" [disabled]="!isEditMode">
+                            <input type="text" id="description" [(ngModel)]="userData.donataire.description" [disabled]="!isEditMode">
                         </div>
                     </div>
 
@@ -98,7 +98,7 @@
                         </div>
                         <div class="info">
                             <label>Pays</label>
-                            <select name="country" [(ngModel)]="userData.pays" [disabled]="!isEditMode" class="full-width">
+                            <select name="country" [(ngModel)]="userData.country" [disabled]="!isEditMode" class="full-width">
                                 <option value="">Sélectionnez un pays</option>
                                 <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
                             </select>

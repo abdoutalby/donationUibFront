@@ -32,7 +32,7 @@
         <tr *ngFor="let donation of recentDonations">
           <td>{{ donation.id }}</td>
           <td>{{ donation.montant | currency:'TND':'symbol':'1.2-2' }}</td>
-          <td>{{ donation.campaignName }}</td>
+          <td>{{ donation.campagne.nom }}</td>
           <td>{{ donation.donDate | date:'shortDate' }}</td>
         </tr>
       </tbody>

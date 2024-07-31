@@ -41,7 +41,7 @@ getProgress(p: any) {
         this.projects=res;
         console.log(res);
         
-        this.filteredProjects = this.projects;
+        this.filteredProjects = this.projects.filter((ann : any )=> ann.statut === 'ACTIF' );
       }
 
     })

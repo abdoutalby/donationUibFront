@@ -14,6 +14,9 @@ export class FilesService {
     return this.http.post(this.url +"upload" , file )
   }
 
+  load(file : any ){
+    return this.http.get(this.url+"load/"+file);
+  }
   
 
 }

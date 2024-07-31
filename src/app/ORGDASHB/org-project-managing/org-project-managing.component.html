@@ -34,7 +34,7 @@
           <td>{{ campaign.campagneDate }}</td>
           <td>{{ campaign.dons.length }}</td>
           <td>{{ (campaign.montantCollecte / campaign.objectifCollecte) * 100 | number:'1.0-0' }}%</td>
-          <td>{{ campaign.comments }}</td>
+          <td>{{ campaign.nbComment }}</td>
           <td>
               <span class="status-circle" [ngClass]="campaign.status === 0 ? 'status-inactive' : 'status-active'"
                     [matTooltip]="campaign.status === 0 ? 'Veuillez contacter l\'équipe à fin de savoir pourquoi' : ''">

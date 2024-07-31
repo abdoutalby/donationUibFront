@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CampagneService } from '../services/campagne.service';
 import { FilesService } from '../services/files.service';
 
@@ -21,6 +21,7 @@ export class UpdateComponent implements OnInit {
     private activeRoute :  ActivatedRoute,
     private campagneService : CampagneService,
     private fileService : FilesService,
+    private router : Router,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -84,6 +85,7 @@ export class UpdateComponent implements OnInit {
               this.campagneService.update(this.campaign).subscribe({
                 next : (res : any )=> {
                   console.log("campagne updated succ");
+                  this.router.navigate(["/orgmanage"])
                 },
                 error : (err : any )=>{
                   console.log(err)

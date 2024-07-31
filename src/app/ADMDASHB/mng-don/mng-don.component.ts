@@ -17,13 +17,14 @@ export class MngDonComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllDons();
-    this.filteredDonations = this.donations; // Initialize filteredDonations with all donations
-  }
+   }
 
   getAllDons(){
     this.donsService.getAll().subscribe({
         next : (res :any )=> {
           this.donations = res
+          console.log(res);
+          
         }
     })
   }

@@ -9,6 +9,6 @@ export class Donneur extends User {
   prénom!: string;
   dateDeNaissance!: Date;
   pays!: string;
-  dons: Don[] = []; // List of donations
-  commentaires: Commentaire[] = []; // List of comments
+  dons: Don[] = []; 
+  commentaires: Commentaire[] = [];
 }

@@ -1,6 +1,10 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <app-adm-graph class="graph-container"></app-adm-graph><!--RETURN EACH "DONNEUR" AND IT'S TOTAL DONATIONS-->
+    <app-adm-graph 
+    *ngIf="showGraph"
+    [data]="filteredDonneurs"
+    [type] = "'donneur'"
+    class="graph-container"></app-adm-graph><!--RETURN EACH "DONNEUR" AND IT'S TOTAL DONATIONS-->
 
     <h2>Gestion des Donneurs</h2>
 
@@ -22,18 +26,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let donneur of filteredDonneurs">
+        <tr *ngFor="let donneur of filteredDonneurs | users : searchQuery">
           <td>{{ donneur.id }}</td>
           <td>{{ donneur.name }}</td>
           <td>{{ donneur.username }}</td>
           <td>{{ donneur.email }}</td>
-          <td>{{ donneur.totalDons }}</td>
+          <td>{{ donneur.donneur.totalGives }}</td>
           <td>
-            <span class="status-circle" [class.status-active]="donneur.isActive" [class.status-inactive]="!donneur.isActive"></span>
+            <span class="status-circle" [class.status-active]="donneur.status == 'ENABLED'" [class.status-inactive]="donneur.status != 'ENABLED'"></span>
           </td>
           <td>
-            <button *ngIf="donneur.isActive" (click)="confirmSuspend(donneur)">Suspendre</button>
-            <button *ngIf="!donneur.isActive" (click)="reactivateDonneur(donneur)">Réactiver</button>
+            <button *ngIf="donneur.status == 'ENABLED'" (click)="confirmSuspend(donneur)">Suspendre</button>
+            <button *ngIf="donneur.status != 'ENABLED'" (click)="reactivateDonneur(donneur)">Réactiver</button>
           </td>
         </tr>
       </tbody>

@@ -13,10 +13,8 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const userRole = this.authService.getUserRole(); 
-
     if (!userRole) {
-      console.error('User role not found or not set.');
-      this.router.navigate(['/login']); 
+       this.router.navigate(['/login']); 
       return false;
     }
 

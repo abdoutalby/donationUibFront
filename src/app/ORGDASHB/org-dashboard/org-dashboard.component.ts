@@ -4,6 +4,7 @@ import { error } from 'highcharts';
 import { CommentaireService } from '../../services/commentaire.service';
 import { UsersService } from '../../services/users.service';
 import { CampagneService } from '../../services/campagne.service';
+import { AuthService } from '../../services/auth.service';
 
 interface Stat {
   label: string;
@@ -55,6 +56,7 @@ export class OrgDashboardComponent implements OnInit {
     private donService :  DonService,
     private commentsService : CommentaireService,
     private campagneService : CampagneService,
+    private authService : AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -75,7 +77,7 @@ export class OrgDashboardComponent implements OnInit {
   }
 
   getTotalCampagne(){
-    this.campagneService.getAllByUserId(1).subscribe({
+    this.campagneService.getAllByUserId(this.authService.getUserId()).subscribe({
       next : (res : any )=> {
         console.log(res)
         console.log(res.length);
@@ -88,7 +90,6 @@ export class OrgDashboardComponent implements OnInit {
     this.commentsService.getLatestComments().subscribe({
       next : (res)=> {this.recentComments = res
         console.log(this.recentComments)
-
       } 
     })
   }

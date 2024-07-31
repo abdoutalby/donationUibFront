@@ -5,15 +5,19 @@ import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-     const authToken ="Bearer "+ this.auth.getToken();
+    const authToken = "Bearer " + this.auth.getToken();
+    if (req.url.includes("/auth/") ||
+      req.url.includes("/files/")) {
+         
+      return next.handle(req)
+    }
+     
     const authReq = req.clone({
-      headers: req.headers.set('Authorization',  authToken)
+      headers: req.headers.set('Authorization', authToken)
     });
-
-    // send cloned request with header to the next handler.
-    return next.handle(authReq);
+    return next.handle(authReq)
   }
 }

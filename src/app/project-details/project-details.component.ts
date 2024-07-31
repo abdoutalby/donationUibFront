@@ -4,6 +4,8 @@ import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
 import { CampagneService } from '../services/campagne.service';
 import { CommentaireService } from '../services/commentaire.service';
+import { error } from 'highcharts';
+import { STRIPE_PUBLISHABLE_KEY } from 'ngx-stripe';
 
 @Component({
   selector: 'app-project-details',
@@ -12,54 +14,49 @@ import { CommentaireService } from '../services/commentaire.service';
 })
 export class ProjectDetailsComponent implements OnInit {
   project: any = {};
-  relatedProjects: any[] = [
-    {
-      title: 'Santé pour Tous',
-      image: 'assets/med.jpeg',
-      shortDescription: 'Fournir l\'accès aux soins de santé aux communautés défavorisées.'
-    },
-    {
-      title: 'Éducation pour Tous',
-      image: 'assets/edu.jpg',
-      shortDescription: 'Soutenir les initiatives éducatives à l\'échelle mondiale.'
-    },
-    {
-      title: 'Solutions d\'Énergie Renouvelable',
-      image: 'assets/ener.jpeg',
-      shortDescription: 'Promouvoir les pratiques énergétiques durables.'
-    }
-  ];
+  relatedProjects: any[] = [];
+  id : any ;
 
   comments: any[] = [];
 
   newComment: any = { text: '' };
+  showPayment: boolean =false;
 
   ngOnInit(): void {
-    this.getCurrentProject();
-    
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      this.getCurrentProject(id)
+    });
   }
 
   constructor(
     private campagneService : CampagneService,
     private commentaireService : CommentaireService,
-    private activeRoute : ActivatedRoute,
+    private route : ActivatedRoute,
     private router: Router, private authService: AuthService) {}
 
   isConnected(): boolean {
     return this.authService.isAuthenticated();
   }
 
-
-  getCurrentProject(){
-  var id = this.activeRoute.snapshot.params["id"] ;
-  console.log(id);
-  this.campagneService.getById(id).subscribe({
+  getRelatedProjects(){
+    this.campagneService.getRelatedProject(this.project.cause).subscribe({
+      next : (res : any )=> {
+        this.relatedProjects = res.filter((p : any ) => 
+          p.id != this.project.id
+        ) ;
+        console.log(res);
+        
+      }
+    })
+  }
+  getCurrentProject(id : any ){
+   this.campagneService.getById(id).subscribe({
     next : (res)=> {
       console.log(res)
       this.project = res ;
-
       this.getProjectComments();
-      
+      this.getRelatedProjects();
     },
     error : (err)=> console.log(err)
   })
@@ -75,10 +72,13 @@ export class ProjectDetailsComponent implements OnInit {
 
   donate() {
     if (this.isConnected()) {
-      this.router.navigate(['/donate']);
+      this.showPayment = true 
+         window.open('https://buy.stripe.com/test_14kaFZfRM02y120dQQ', '_blank');
+
     } else {
       this.router.navigate(['/login']);
-    }
+    }  
+    
   }
 
   addComment() {
@@ -86,11 +86,11 @@ export class ProjectDetailsComponent implements OnInit {
       
        let comment =  {
           "content" :this.newComment.text,
-          "userId" : 1,
+          "userId" : this.authService.getUserId(),
           "postId" : this.project.id
       }
       this.commentaireService.save(comment).subscribe({
-        next : (res)=> this.getCurrentProject()
+        next : (res)=> this.getCurrentProject(this.project.id)
       })
       
       this.newComment.text = '';
@@ -108,6 +108,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   goToProject(project: any) {
-    this.router.navigate(['/project-details', project.id]);
+  this.router.navigate(['details' , project.id])
+  
   }
 }

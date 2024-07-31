@@ -5,16 +5,25 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CampagneService {
-  getTotal() {
-    return this.http.get(this.url+"count")
-  }
-  getAllByUserId(id : any ) {
-    return this.http.get(this.url +"findAllByUserId/"+id)
-   }
+  
   
 
   url = "http://localhost:8080/api/campagne/" ;
   constructor(private http : HttpClient) { }
+
+  charge(body: any ) {
+    return this.http.post("http://localhost:8080/charge" , body)
+  }
+  getRelatedProject(project: any) {
+    return this.http.get(this.url +"related/"+project)
+  }
+ getTotal() {
+   return this.http.get(this.url+"count")
+ }
+ getAllByUserId(id : any ) {
+   return this.http.get(this.url +"findAllByUserId/"+id)
+  }
+ 
 
   getAlmostFinished() {
     return this.http.get(this.url +"almostFinished")
@@ -33,7 +42,7 @@ export class CampagneService {
     return this.http.post(this.url+"save" , campagne)
   }
   update(campaign: any) {
-    return this.http.put(this.url +"update/"+campaign.id , campaign)
+    return this.http.patch(this.url +"update/"+campaign.id , campaign)
   }
 
 }

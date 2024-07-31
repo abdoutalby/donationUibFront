@@ -11,7 +11,7 @@ import { error } from 'highcharts';
 export class MngCampagneComponent implements OnInit {
   pendingCampaigns: any[] = [
    ];
-
+   showGraph = false ;
    filesUrl = "http://localhost:8080/api/files/load/"
   apiCamps = []
   filteredCampaigns: any[] = [];
@@ -32,10 +32,11 @@ export class MngCampagneComponent implements OnInit {
     this.campagneService.getAll().subscribe({
       next: (res : any )=> {
         console.log(res);
-        this.filteredCampaigns = res ;
-        this.pendingCampaigns = this.apiCamps.filter((campaign : any)  =>
-          campaign.status == "PENDING"
-        );  
+        this.filteredCampaigns = res.filter((camp : any )=> camp.statut != "PENDING") ;
+        this.pendingCampaigns = res.filter((item: any)=>item.statut === "PENDING" );  
+        console.log(this.filteredCampaigns);
+        console.log(this.pendingCampaigns);
+        this.showGraph = true ;
       }
     })
   }
@@ -87,17 +88,21 @@ export class MngCampagneComponent implements OnInit {
 
   changeCampaginStatus(campaign: any , st : any ): void {
     campaign.statut = st;
+    console.log(campaign);
     this.campagneService.update(campaign).subscribe({
       next : (res : any )=> {
-
+        console.log(res);
+        
     Swal.fire(
       'Success!',
       `La campagne "${campaign.nom}" a été modifier.`,
       'success'
     );
+    this.getAllCampagnes()
       },
       error : (err : any )=> {
-
+        console.log(err);
+        
     Swal.fire(
       'Error!',
       `something went wrong "${err.error}".`,

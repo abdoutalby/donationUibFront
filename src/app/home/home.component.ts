@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
     private userService :UsersService,
     private donService : DonService, 
     private campagneService : CampagneService,
-    private router: Router, private authService: AuthService) { }
+    private authService : AuthService,
+    private router: Router) { }
 
     getDonneur(){
     this.userService.getTotalDonneur().subscribe({
@@ -44,12 +45,19 @@ export class HomeComponent implements OnInit {
   }
 
   getTotalProjects(){
+    if(this.authService.getUserRole()!="ADMIN"){
+      this.campagneService.getAllByUserId(this.authService.getUserId()).subscribe({
+        next : (res : any )=>{
+          this.sponsorsCount = res.length ;
+        }
+      })
+    } else {
     this.campagneService.getTotal().subscribe({
       next : (res : any )=>{
         this.sponsorsCount = res ;
       }
     })
-  }
+  }}
 
   getDonataire(){
     this.userService.getTotalDonatiare().subscribe({

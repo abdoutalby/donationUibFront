@@ -35,7 +35,7 @@
       <p>.</p>
       <p><label (click)="closeMenuAndNavigate('/changepass')">Changer mot de passe</label></p>
       <p>.</p>
-      <p><label (click)="closeMenuAndNavigate('/settings')">Déconnecter</label></p>
+      <p><label (click)="logout()">Déconnecter</label></p>
       <p>.</p>
     </div>
   </ng-template>
@@ -53,7 +53,7 @@
       <p>.</p>
       <p><label (click)="closeMenuAndNavigate('/changepass')">Changer mot de passe</label></p>
       <p>.</p>
-      <p><label (click)="closeMenuAndNavigate('/settings')">Déconnecter</label></p>
+      <p><label (click)="logout()">Déconnecter</label></p>
       <p>.</p>
     </div>
   </ng-template>
@@ -69,9 +69,9 @@
 
     <div class="sub-nav">
       <p>.</p>
-      <p><label (click)="closeMenuAndNavigate('/admin/users')">Changer mot de passe</label></p>
+      <p><label (click)="closeMenuAndNavigate('/changepass')">Changer mot de passe</label></p>
       <p>.</p>
-      <p><label (click)="closeMenuAndNavigate('/admin/settings')">Déconnecter</label></p>
+      <p><label (click)="logout()">Déconnecter</label></p>
       <p>.</p>
     </div>
   </ng-template>
