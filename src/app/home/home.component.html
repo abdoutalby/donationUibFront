@@ -74,8 +74,10 @@
           <p class="step-description" id="step5-description">Suivez l'impact de votre contribution en recevant des nouvelles et des rapports réguliers sur l'avancement du projet que vous soutenez.</p>
         </div>
       </div>
+      
     </div>
     
+<app-footer></app-footer>
     <ng-template #connectedContent>
       <div *ngIf="getRole() === 'donneur'; else donataireContent" class="tutorial-area-container">
         <h2 class="tutorial-area-title">Bienvenue Donneur</h2>
@@ -128,4 +130,3 @@
       </ng-template>
 
       
-<app-footer></app-footer>

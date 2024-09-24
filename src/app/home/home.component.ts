@@ -37,9 +37,12 @@ export class HomeComponent implements OnInit {
     getDonneur(){
     this.userService.getTotalDonneur().subscribe({
       next: (res : any )=> {
-        this.donneurCount  = res 
-        console.log("donneur "+ res);
-        
+        this.donneurCount  = res.total 
+         
+      } , 
+
+      error: (err : any )=> {
+        console.log(err)
       }
     })
   }
@@ -55,6 +58,9 @@ export class HomeComponent implements OnInit {
     this.campagneService.getTotal().subscribe({
       next : (res : any )=>{
         this.sponsorsCount = res ;
+      },
+      error: (err : any )=> {
+        console.log(err)
       }
     })
   }}
@@ -62,9 +68,10 @@ export class HomeComponent implements OnInit {
   getDonataire(){
     this.userService.getTotalDonatiare().subscribe({
       next: (res : any )=> {
-        this.donataireCount  = res 
-        console.log("donataire"+ res);
-
+        this.donataireCount  = res.total 
+       },
+      error: (err : any )=> {
+        console.log(err)
       }
     })
   }
@@ -72,9 +79,8 @@ export class HomeComponent implements OnInit {
   getDons(){
   this.donService.getTotal().subscribe({
         next: (res : any )=> {
-          this.donsCount  = res
-          console.log("dons "+ res);
- 
+          this.donsCount  = res.total
+  
         }
       })
   }
@@ -94,8 +100,8 @@ export class HomeComponent implements OnInit {
     }, 3000);
     this.getDonataire()
     this.getDonneur()
-    this.getDons()
-    this.getTotalProjects()
+    // this.getDons()
+    // this.getTotalProjects()
    }
 
   changeDisplayedLogos() {

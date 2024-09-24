@@ -4,8 +4,7 @@ import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
 import { CampagneService } from '../services/campagne.service';
 import { CommentaireService } from '../services/commentaire.service';
-import { error } from 'highcharts';
-import { STRIPE_PUBLISHABLE_KEY } from 'ngx-stripe';
+
 
 @Component({
   selector: 'app-project-details',

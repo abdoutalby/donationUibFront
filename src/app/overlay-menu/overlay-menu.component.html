@@ -1,5 +1,5 @@
 <div class="overlay" [ngClass]="{ 'open': isMenuOpen, 'closing': isMenuClosing }">
-  <ng-container *ngIf="!getRole(); then visiteurContent"></ng-container>
+  <ng-container *ngIf="getRole()=='VISITER'; then visiteurContent"></ng-container>
   <ng-container *ngIf="getRole() === 'TAKER'; then donataireContent"></ng-container>
   <ng-container *ngIf="getRole() === 'GIVER'; then donneurContent"></ng-container>
   <ng-container *ngIf="getRole() === 'ADMIN'; then adminContent"></ng-container>

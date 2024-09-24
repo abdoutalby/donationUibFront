@@ -34,8 +34,7 @@ export class PresqueFiniComponent implements OnInit {
   getAlmostFinished(){
     this.campagneService.getAlmostFinished().subscribe({
       next : (res : any )=> {
-        console.log(res);
-        this.allProjects  =res 
+         this.allProjects  =res 
         this.displayedProjects = this.allProjects
       }
     })

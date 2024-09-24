@@ -10,7 +10,10 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = "Bearer " + this.auth.getToken();
     if (req.url.includes("/auth/") ||
-      req.url.includes("/files/")) {
+    req.url.includes("/api/users/countDonatiare") ||
+    req.url.includes("/api/users/countDonneur") ||
+    req.url.includes("/api/campagne/almostFinished") ||
+    req.url.includes("/files/")) {
          
       return next.handle(req)
     }

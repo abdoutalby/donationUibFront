@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip'; 
 
 import { BrowserModule } from '@angular/platform-browser';
-import { CountUpModule } from 'ngx-countup'; 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OverlayMenuComponent } from './overlay-menu/overlay-menu.component';
@@ -38,11 +37,11 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
 import { UpdateComponent } from './update/update.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './services/interceptors/http.interceptor';
-import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentComponent } from './componenets/payment/payment.component';
 import { ProjectPipe } from './pipes/project.pipe';
 import { UsersPipe } from './pipes/users.pipe';
 import { CampagnePipe } from './pipes/campagne.pipe';
+import { CountUpModule } from 'ngx-countup';
 
 
 @NgModule({
@@ -84,14 +83,11 @@ import { CampagnePipe } from './pipes/campagne.pipe';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    CountUpModule,
     NgApexchartsModule,
     CommonModule,
+    CountUpModule,
     MatTooltipModule,
     HttpClientModule,
-    NgxStripeModule.forRoot(
-       'pk_test_51PdVeuKpnFKx1MbZRGuXj7xdLT895gTmgzKmhGN07ZwZTfUpTY8gavTAq9Op0YNlpBy4aqV7JJJw4iC9K3khiRzw00m2Dl3WWW',
-    )
 
   ],
   providers: [

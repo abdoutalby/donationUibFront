@@ -24,12 +24,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(){
-    console.log(this.loginForm.value);
+  login(){ 
     this.authService.login(this.loginForm.value).subscribe({
       next : (res : any )=> {
-        console.log(res);
-        localStorage.setItem("token", res.token)
+         localStorage.setItem("token", res.token)
         var role = this.authService.getUserRole()
         switch(role){
           case 'GIVER' : this.router.navigate(['/'])

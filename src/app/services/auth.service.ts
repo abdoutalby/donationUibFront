@@ -52,7 +52,7 @@ export class AuthService {
       var json: any = decoded;
       return json.role.authority
     }
-    return "visiteur";
+    return "VISITER";
   }
 
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-change-password',
@@ -58,6 +59,11 @@ export class ChangePasswordComponent {
   }
 
   changePassword() {
+
+    if(this.currentPassword.length==0){
+      Swal.fire("OOPS !!" ,  "please enter your current password" , 'error')
+      return ;
+    }
        const body = {
         email : this.authService.getUserId(),
         password : this.newPassword
