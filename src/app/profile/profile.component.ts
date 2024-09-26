@@ -22,7 +22,7 @@ export class ProfileComponent {
     clientChezUib: 'Oui',
     dateDeNaissance: '1990-01-01',
     pays: 'Tunisia',
-    telephone: '123456789',
+    phone: '123456789',
     email: 'john.doe@example.com'
   };
 
@@ -31,7 +31,7 @@ export class ProfileComponent {
     nom: 'Jane',
     filiereActivite: 'Santé',
     description: 'Description A',
-    telephone: '987654321',
+    phone: '987654321',
     pays: 'Tunisia',
     email: 'jane.smith@example.com'
   };
@@ -44,11 +44,13 @@ export class ProfileComponent {
   }
 
   ngOnInit(){
-    console.log(this.authService.getUserRole());
+    this.getUserById()
+  }
+
+  getUserById(){
     this.userService.getUserById(this.authService.getUserId()).subscribe({
       next : (res : any )=> {
-        console.log(res);
-        this.userData = res 
+         this.userData = res 
       }
     })
   }
@@ -102,7 +104,7 @@ export class ProfileComponent {
     this.isEditMode = false;
     this.userService.update(this.userData).subscribe({
       next :(res : any )=> {
-        console.log(res);
+        this.router.navigate(["/"])
       },
       error : (err : any )=> {
         console.log(err);

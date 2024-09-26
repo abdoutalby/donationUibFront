@@ -63,7 +63,7 @@
                     <div class="info-row">
                         <div class="info">
                             <label for="type">Type:</label>
-                            <input type="text" id="type" [(ngModel)]="userData.donataire.type" [disabled]="!isEditMode">
+                            <input type="text" id="type" [(ngModel)]="userData?.donataire.type" [disabled]="!isEditMode">
                         </div>
                         <div class="info">
                             <label for="nom">Nom:</label>
@@ -74,7 +74,7 @@
                     <div class="info-row">
                         <div class="info">
                             <label>Filière d'activité</label>
-                            <select name="activityField" [(ngModel)]="userData.donataire.activityField" [disabled]="!isEditMode" class="full-width">
+                            <select name="activityField" [(ngModel)]="userData?.donataire.activityField" [disabled]="!isEditMode" class="full-width">
                                 <option value="Eau">Eau</option>
                                 <option value="Santé">Santé</option>
                                 <option value="Éducation">Éducation</option>
@@ -87,14 +87,14 @@
                     <div class="info-row">
                         <div class="info">
                             <label for="description">Description:</label>
-                            <input type="text" id="description" [(ngModel)]="userData.donataire.description" [disabled]="!isEditMode">
+                            <input type="text" id="description" [(ngModel)]="userData?.donataire.description" [disabled]="!isEditMode">
                         </div>
                     </div>
 
                     <div class="info-row">
                         <div class="info">
                             <label for="telephone">Téléphone:</label>
-                            <input type="text" id="telephone" [(ngModel)]="userData.telephone" [disabled]="!isEditMode">
+                            <input type="text" id="telephone" [(ngModel)]="userData?.donataire.telephone" [disabled]="!isEditMode">
                         </div>
                         <div class="info">
                             <label>Pays</label>

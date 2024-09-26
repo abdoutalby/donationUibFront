@@ -8,11 +8,11 @@ export class CampagneService {
   
   
 
-  url = "http://localhost:8080/api/campagne/" ;
+  url = "http://localhost:8090/api/campagne/" ;
   constructor(private http : HttpClient) { }
 
   charge(body: any ) {
-    return this.http.post("http://localhost:8080/charge" , body)
+    return this.http.post("http://localhost:8090/charge" , body)
   }
   getRelatedProject(project: any) {
     return this.http.get(this.url +"related/"+project)

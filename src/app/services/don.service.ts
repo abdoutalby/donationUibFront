@@ -8,7 +8,7 @@ export class DonService {
   
 
 
-  url = "http://localhost:8080/api/dons/"
+  url = "http://localhost:8090/api/dons/"
   constructor(private http : HttpClient) { }
 
   

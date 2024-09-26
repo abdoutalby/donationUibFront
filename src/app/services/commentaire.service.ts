@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class CommentaireService {
  
 
-  url = "http://localhost:8080/api/commentaires/"
+  url = "http://localhost:8090/api/commentaires/"
 
   constructor(private http : HttpClient) { }
 
