@@ -6,11 +6,15 @@ import { Injectable } from '@angular/core';
 })
 export class CampagneService {
   
-  
-
   url = "http://localhost:8090/api/campagne/" ;
   constructor(private http : HttpClient) { }
+  getFinished() {
+    return this.http.get(this.url+"getFinished")
+  }
 
+  getLastThree() {
+    return this.http.get(this.url+"getLastThree")
+  }
   charge(body: any ) {
     return this.http.post("http://localhost:8090/charge" , body)
   }

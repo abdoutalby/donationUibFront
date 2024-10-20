@@ -7,7 +7,7 @@
                 <li *ngFor="let campagne of nouvellesCampagnes">
                     <i class='bx bx-rocket campaign-icon'></i>
                     <div class="details">
-                        <span class="organisation">{{ campagne.organisation }}</span> a lancé une nouvelle campagne appelée <span class="campaign-name">{{ campagne.nom }}</span> 
+                        <span class="organisation">{{ campagne.user.donataire.organizationName }}</span> a lancé une nouvelle campagne appelée <span class="campaign-name">{{ campagne.nom }}</span> 
                         <br><a [routerLink]="['/details']"> Faites un don maintenant</a>
                     </div>
                 </li>
