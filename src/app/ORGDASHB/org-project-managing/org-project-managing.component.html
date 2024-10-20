@@ -29,7 +29,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let campaign of filteredCampaigns">
-          <td><img src="http://localhost:8080/api/files/load/{{campaign.image}}" alt="Campaign Image"></td>
+          <td><img src="http://localhost:8090/api/files/load/{{campaign.image}}" alt="Campaign Image"></td>
           <td>{{ campaign.nom }}</td>
           <td>{{ campaign.campagneDate }}</td>
           <td>{{ campaign.dons.length }}</td>

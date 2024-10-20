@@ -12,7 +12,7 @@ export class MngCampagneComponent implements OnInit {
   pendingCampaigns: any[] = [
    ];
    showGraph = false ;
-   filesUrl = "http://localhost:8080/api/files/load/"
+   filesUrl = "http://localhost:8090/api/files/load/"
   apiCamps = []
   filteredCampaigns: any[] = [];
   searchQuery: string = '';

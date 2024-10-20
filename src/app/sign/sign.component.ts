@@ -3,6 +3,14 @@ import * as countryList from 'country-list';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { FilesService } from '../services/files.service';
+
+
+export class filesToUpload  {
+  logo! : File;
+  taxId! : File;
+}
+
 
 @Component({
   selector: 'app-sign',
@@ -10,7 +18,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign.component.css']
 })
 export class SignComponent {
-  selectedRole: string | null = null;
+   selectedRole: string | null = null;
   countries = countryList.getData();
   organizationNameError: string = '';
   firstNameError: string = '';
@@ -27,8 +35,8 @@ export class SignComponent {
     organizationName: '',
     country: '',
     activityField: '',
-    logo: null,
-    taxId: null,
+    logo: new File([] ,'null'),
+    taxId: new File([] , "taxId"),
     rib: '',
     phone: '',
     description: '',
@@ -55,11 +63,17 @@ export class SignComponent {
     { nom: 'Anis', prénom: 'Ouerhani', date: '1990-01-01', country:'Tunisia', phone: '50100200', rib: '987654321' },
     { nom: 'Ayoub', prénom: 'Melki', date: '1992-02-02', country:'Bangladesh', phone: '50200300', rib: '123456789' }
   ];
-
+    formData = new FormData();
+  file: any;
+  files=new   filesToUpload();
+  
   constructor(
     private authService : AuthService,
     private router : Router,
-    private zone: NgZone) {}
+    private fileService: FilesService,
+    private zone: NgZone) {
+      
+    }
 
   selectRole(role: string) {
     if (role === 'donneur') {
@@ -145,9 +159,14 @@ export class SignComponent {
   onFileChange(event: any, field: string) {
     const file = event.target.files[0];
     if (field === 'logo') {
-      this.donataire.logo = file;
+      this.file = file;
+      this.files.logo = this.file;
+      console.log(this.files);
+      
     } else if (field === 'taxId') {
-      this.donataire.taxId = file;
+      this.file = file;
+      this.files.taxId = this.file;
+      console.log(this.files);
     }
   }
 
@@ -267,34 +286,37 @@ export class SignComponent {
   }
   
   if(this.selectedRole == "donataire"){
-
-    var taker = {
-      "name" : this.donataire.organizationName,
-        "email" : this.donataire.email,
-        "username" : this.donataire.organizationName,
-        "password" : this.donataire.password,
-        "userType" : "TAKER",
-        "donataire"  : {
-            "type" : this.donataire.type,
-            "organizationName":this.donataire.organizationName,
-            "activityField": this.donataire.activityField,
-            "country" : this.donataire.country,
-            "logo" : "this.donataire.logo",
-            "taxId" : "this.donataire.taxId.name",
-            "rib" : this.donataire.rib,
-            "description" : this.donataire.description
-        }
-    }
-    console.log(taker);
+  
+  
     
-    this.authService.register(taker).subscribe({
-      next : (res : any )=> {
-        this.router.navigate(['/login'])
-      },
-      error : (err)=> {
-        Swal.fire("error" , err.error.error , 'error')
-      }
-    })
+
+        var taker = {
+          "name" : this.donataire.organizationName,
+            "email" : this.donataire.email,
+            "username" : this.donataire.organizationName,
+            "password" : this.donataire.password,
+            "userType" : "TAKER",
+            "donataire"  : {
+                "type" : this.donataire.type,
+                "organizationName":this.donataire.organizationName,
+                "activityField": this.donataire.activityField,
+                "country" : this.donataire.country,
+                "logo" : "logo" , 
+                "taxId" : "this.donataire.taxId.name",
+                "rib" : this.donataire.rib,
+                "description" : this.donataire.description
+            }
+        }
+        console.log(taker);
+        
+        this.authService.register(taker).subscribe({
+          next : (res : any )=> {
+            this.router.navigate(['/login'])
+          },
+          error : (err)=> {
+            Swal.fire("error" , err.error.error , 'error')
+          }
+        })
   }
   
   

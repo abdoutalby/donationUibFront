@@ -35,7 +35,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/annonces'])        
       },
       error : (err : any )=> {
-        Swal.fire(err.error.error , "please check your credentails and account state" , 'error')
+        console.log(err);
+        
+        Swal.fire(err.error.error , err.error , 'error')
       }
     })
   }
